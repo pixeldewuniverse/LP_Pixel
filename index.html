@@ -49,11 +49,15 @@
     backdrop-filter: blur(12px);
   }
   .logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800; font-size: 1.25rem;
-    letter-spacing: -0.03em;
+    display: inline-flex;
+    align-items: center;
+    line-height: 0;
   }
-  .logo span { color: var(--accent); }
+  .logo img {
+    width: clamp(140px, 16vw, 190px);
+    height: auto;
+    filter: drop-shadow(0 0 10px rgba(43, 255, 184, 0.18));
+  }
   .nav-tag {
     font-size: 0.75rem; font-weight: 500;
     background: var(--ink); color: var(--paper);
@@ -453,7 +457,6 @@
   footer strong { color: var(--ink); font-family: 'Syne', sans-serif; font-weight: 700; }
 
   /* ─── PIXELDEW THEME OVERRIDES ─── */
-  .logo span { color: var(--accent2); }
   .nav-tag {
     background: rgba(43, 255, 184, 0.16);
     color: var(--accent);
@@ -471,7 +474,7 @@
   .card-icon.green { background: rgba(0, 255, 170, 0.14); }
   .card-icon.amber { background: rgba(131, 102, 255, 0.2); }
   .card p, .deliverable-list li, .inv-notes p, .hero-sub, .section-sub, .tl-desc, footer { color: #c4bee5; }
-  .phase-price, .phase-title, .tl-title, .inv-label, .inv-logo, .logo, h1, h2, .hero-meta-item span, footer strong { color: #e8f9ff; }
+  .phase-price, .phase-title, .tl-title, .inv-label, .inv-logo, h1, h2, .hero-meta-item span, footer strong { color: #e8f9ff; }
   .phase-badge.p1, .inv-status { background: rgba(43, 255, 184, 0.16); color: var(--accent); }
   .cta-area {
     background: linear-gradient(135deg, rgba(13, 4, 45, 0.95), rgba(5, 18, 52, 0.95));
@@ -552,7 +555,9 @@
 
 <!-- ─── NAV ─── -->
 <nav>
-  <div class="logo">pixel<span>dew</span>.xyz</div>
+  <div class="logo">
+    <img src="assets/pixeldew-logo.svg" alt="PixelDew logo"/>
+  </div>
   <div class="nav-tag">Proposal Resmi</div>
 </nav>
 
