@@ -9,20 +9,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --ink: #0D0D0F;
-    --paper: #F5F2ED;
-    --warm: #F0EAE0;
-    --accent: #C8502A;
-    --accent2: #2A6FC8;
-    --mid: #7A7570;
-    --border: #D8D2C8;
-    --card: #FFFFFF;
+    --ink: #eaf9ff;
+    --paper: #07001f;
+    --warm: #12063c;
+    --accent: #2bffb8;
+    --accent2: #18d8ff;
+    --mid: #aaa3cf;
+    --border: rgba(43, 255, 184, 0.28);
+    --card: rgba(16, 8, 52, 0.72);
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     font-family: 'DM Sans', sans-serif;
-    background: var(--paper);
+    background:
+      radial-gradient(circle at 18% 20%, rgba(22, 255, 196, 0.12), transparent 40%),
+      radial-gradient(circle at 80% 0%, rgba(24, 216, 255, 0.18), transparent 35%),
+      linear-gradient(180deg, #07001f 0%, #080022 45%, #050015 100%);
     color: var(--ink);
     line-height: 1.6;
     overflow-x: hidden;
@@ -33,7 +36,7 @@
     content: '';
     position: fixed; inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 9999; opacity: 0.5;
+    pointer-events: none; z-index: 9999; opacity: 0.18;
   }
 
   /* ─── NAV ─── */
@@ -42,15 +45,21 @@
     padding: 1.25rem 2.5rem;
     border-bottom: 1px solid var(--border);
     position: sticky; top: 0; z-index: 100;
-    background: rgba(245,242,237,0.92);
+    background: rgba(7, 2, 30, 0.9);
     backdrop-filter: blur(12px);
   }
   .logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800; font-size: 1.25rem;
-    letter-spacing: -0.03em;
+    display: inline-flex;
+    align-items: center;
+    line-height: 0;
   }
-  .logo span { color: var(--accent); }
+  .logo img {
+    width: clamp(118px, 12vw, 156px);
+    height: auto;
+    display: block;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px rgba(43, 255, 184, 0.16));
+  }
   .nav-tag {
     font-size: 0.75rem; font-weight: 500;
     background: var(--ink); color: var(--paper);
@@ -449,6 +458,65 @@
   }
   footer strong { color: var(--ink); font-family: 'Syne', sans-serif; font-weight: 700; }
 
+  /* ─── PIXELDEW THEME OVERRIDES ─── */
+  .nav-tag {
+    background: rgba(43, 255, 184, 0.16);
+    color: var(--accent);
+    border: 1px solid rgba(43, 255, 184, 0.45);
+  }
+  h1 em { color: var(--accent2); }
+  .card, .phase-block, .invoice-modal {
+    background: var(--card);
+    border-color: var(--border);
+    box-shadow: 0 12px 32px rgba(4, 0, 20, 0.32);
+  }
+  .card:hover { box-shadow: 0 12px 30px rgba(24,216,255,0.16); }
+  .card-icon.red { background: rgba(43, 255, 184, 0.14); }
+  .card-icon.blue { background: rgba(24, 216, 255, 0.14); }
+  .card-icon.green { background: rgba(0, 255, 170, 0.14); }
+  .card-icon.amber { background: rgba(131, 102, 255, 0.2); }
+  .card p, .deliverable-list li, .inv-notes p, .hero-sub, .section-sub, .tl-desc, footer { color: #c4bee5; }
+  .phase-price, .phase-title, .tl-title, .inv-label, .inv-logo, h1, h2, .hero-meta-item span, footer strong { color: #e8f9ff; }
+  .phase-badge.p1, .inv-status { background: rgba(43, 255, 184, 0.16); color: var(--accent); }
+  .cta-area {
+    background: linear-gradient(135deg, rgba(13, 4, 45, 0.95), rgba(5, 18, 52, 0.95));
+    border: 1px solid rgba(24, 216, 255, 0.22);
+  }
+  .btn-primary, .scalev-btn {
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    color: #06111e;
+  }
+  .btn-primary:hover { box-shadow: 0 8px 28px rgba(43,255,184,0.35); }
+  .scalev-btn:hover { filter: brightness(1.08); }
+  .modal-overlay { background: rgba(2, 0, 12, 0.72); }
+  .inv-header, .inv-meta, .inv-table-header, .inv-row, .payment-section, .inv-meta-cell:first-child { border-color: rgba(43, 255, 184, 0.18); }
+  .inv-totals { background: rgba(8, 16, 44, 0.85); }
+  .inv-total-row.grand { border-top-color: rgba(43, 255, 184, 0.2); }
+  .inv-notes { background: rgba(43, 255, 184, 0.08); }
+  .payment-header {
+    background: rgba(8, 18, 47, 0.95);
+    color: #e8f9ff;
+  }
+  .payment-header span {
+    color: rgba(214, 251, 255, 0.72);
+    background: rgba(24, 216, 255, 0.12);
+    border-color: rgba(24, 216, 255, 0.24);
+  }
+  .payment-field input, .payment-field select {
+    background: rgba(5, 14, 40, 0.9);
+    color: #dcf8ff;
+  }
+  .payment-field input:focus, .payment-field select:focus { background: rgba(7, 20, 54, 0.95); }
+  .success-icon { background: rgba(43, 255, 184, 0.16); }
+  [style*="background:#F8F7F4"] { background: rgba(8, 16, 44, 0.85) !important; }
+  [style*="background:#fff"] { background: rgba(12, 8, 38, 0.9) !important; }
+  [style*="border:1px solid var(--border)"] { border-color: rgba(43, 255, 184, 0.28) !important; }
+  .modal-close {
+    background: rgba(16, 10, 46, 0.92);
+    border-color: var(--border);
+  }
+  .modal-close:hover { background: rgba(24, 216, 255, 0.2); color: #ebfdff; }
+
   /* Loading spinner */
   .spinner {
     width: 18px; height: 18px;
@@ -489,7 +557,9 @@
 
 <!-- ─── NAV ─── -->
 <nav>
-  <div class="logo">pixel<span>dew</span>.xyz</div>
+  <div class="logo">
+    <img src="assets/pixeldew-logo.svg" alt="PixelDew logo"/>
+  </div>
   <div class="nav-tag">Proposal Resmi</div>
 </nav>
 
