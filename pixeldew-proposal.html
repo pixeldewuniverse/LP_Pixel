@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>pixeldew.xyz — Proposal Kadobajo.id</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink: #0D0D0F;
+    --paper: #F5F2ED;
+    --warm: #F0EAE0;
+    --accent: #C8502A;
+    --accent2: #2A6FC8;
+    --mid: #7A7570;
+    --border: #D8D2C8;
+    --card: #FFFFFF;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE TEXTURE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.5;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(245,242,237,0.92);
+    backdrop-filter: blur(12px);
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.25rem;
+    letter-spacing: -0.03em;
+  }
+  .logo span { color: var(--accent); }
+  .nav-tag {
+    font-size: 0.75rem; font-weight: 500;
+    background: var(--ink); color: var(--paper);
+    padding: 0.3rem 0.8rem; border-radius: 100px;
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    padding: 5rem 2.5rem 4rem;
+    max-width: 900px; margin: 0 auto;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent);
+    border: 1px solid var(--accent); border-radius: 100px;
+    padding: 0.3rem 0.9rem; margin-bottom: 2rem;
+  }
+  .hero-eyebrow::before { content: '●'; font-size: 0.5rem; }
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800; line-height: 1.05;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+  }
+  h1 em { color: var(--accent); font-style: normal; }
+  .hero-sub {
+    font-size: 1.1rem; color: var(--mid); max-width: 580px;
+    font-weight: 300; margin-bottom: 3rem;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 2rem;
+    padding-top: 2rem; border-top: 1px solid var(--border);
+  }
+  .hero-meta-item label {
+    display: block; font-size: 0.7rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.08em; color: var(--mid);
+    margin-bottom: 0.25rem;
+  }
+  .hero-meta-item span {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
+  }
+
+  /* ─── DIVIDER ─── */
+  .section-divider {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 0 2.5rem; margin: 0 auto 2rem;
+    max-width: 900px;
+  }
+  .section-divider::before, .section-divider::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+  .section-divider span {
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--mid);
+    white-space: nowrap;
+  }
+
+  /* ─── SECTION ─── */
+  section { max-width: 900px; margin: 0 auto; padding: 0 2.5rem 4rem; }
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800; letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+  }
+  .section-sub { color: var(--mid); margin-bottom: 2rem; font-weight: 300; }
+
+  /* ─── CARDS ─── */
+  .card-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.75rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(13,13,15,0.08); }
+  .card-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; margin-bottom: 1rem;
+  }
+  .card-icon.red { background: #FDE8E2; }
+  .card-icon.blue { background: #E2EEF8; }
+  .card-icon.green { background: #E2F5EE; }
+  .card-icon.amber { background: #FDF4E2; }
+  .card h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; }
+  .card p { font-size: 0.875rem; color: var(--mid); line-height: 1.6; }
+
+  /* ─── PHASE BLOCK ─── */
+  .phase-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+  .phase-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 1.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .phase-badge {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.75rem;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 0.3rem 0.8rem; border-radius: 100px;
+  }
+  .phase-badge.p1 { background: #FDE8E2; color: var(--accent); }
+  .phase-price {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem;
+    color: var(--ink);
+  }
+  .phase-body { padding: 1.75rem; }
+  .phase-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem; }
+  .deliverable-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .deliverable-list li {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    font-size: 0.9rem; color: #333;
+  }
+  .deliverable-list li::before {
+    content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 0.05em;
+  }
+
+  /* ─── TIMELINE ─── */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .tl-item {
+    display: flex; gap: 1.5rem; position: relative;
+    padding-bottom: 2rem;
+  }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-left { display: flex; flex-direction: column; align-items: center; gap: 0; flex-shrink: 0; }
+  .tl-dot {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--ink); color: var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.75rem;
+    flex-shrink: 0;
+  }
+  .tl-line { width: 1px; flex: 1; background: var(--border); }
+  .tl-item:last-child .tl-line { display: none; }
+  .tl-content { padding-top: 0.3rem; }
+  .tl-day { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); margin-bottom: 0.2rem; }
+  .tl-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem; }
+  .tl-desc { font-size: 0.85rem; color: var(--mid); }
+
+  /* ─── CTA AREA ─── */
+  .cta-area {
+    background: var(--ink); color: var(--paper);
+    border-radius: 24px; padding: 3rem;
+    text-align: center; margin-bottom: 4rem;
+  }
+  .cta-area h2 { color: var(--paper); margin-bottom: 0.75rem; }
+  .cta-area p { color: rgba(245,242,237,0.65); margin-bottom: 2rem; font-weight: 300; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: var(--accent); color: white;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
+    padding: 1rem 2.5rem; border-radius: 100px;
+    border: none; cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    letter-spacing: -0.01em;
+  }
+  .btn-primary:hover { transform: scale(1.03); box-shadow: 0 8px 28px rgba(200,80,42,0.45); }
+  .btn-primary:active { transform: scale(0.98); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: transparent; color: rgba(245,242,237,0.7);
+    font-size: 0.875rem; padding: 0.75rem 1.5rem; border-radius: 100px;
+    border: 1px solid rgba(245,242,237,0.2); cursor: pointer;
+    margin-left: 0.75rem;
+    transition: border-color 0.15s, color 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-secondary:hover { border-color: rgba(245,242,237,0.5); color: var(--paper); }
+
+  /* ─── MODAL OVERLAY ─── */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(13,13,15,0.6);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: none; align-items: center; justify-content: center;
+    padding: 1.5rem;
+  }
+  .modal-overlay.active { display: flex; }
+
+  /* ─── INVOICE MODAL ─── */
+  .invoice-modal {
+    background: #fff;
+    border-radius: 20px;
+    width: 100%; max-width: 680px;
+    max-height: 90vh; overflow-y: auto;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.25);
+    animation: slideUp 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  @keyframes slideUp {
+    from { transform: translateY(40px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+
+  .inv-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 2.5rem 2.5rem 2rem;
+    border-bottom: 1px solid #EDEDE8;
+  }
+  .inv-logo {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem;
+    letter-spacing: -0.03em; margin-bottom: 0.25rem;
+  }
+  .inv-logo span { color: var(--accent); }
+  .inv-from { font-size: 0.8rem; color: var(--mid); line-height: 1.8; }
+  .inv-title-block { text-align: right; }
+  .inv-label {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.8rem;
+    letter-spacing: -0.04em; color: var(--ink);
+  }
+  .inv-number { font-size: 0.8rem; color: var(--mid); margin-top: 0.25rem; }
+  .inv-status {
+    display: inline-block;
+    background: #FDE8E2; color: var(--accent);
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 100px;
+    margin-top: 0.5rem;
+  }
+
+  .inv-meta {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0; border-bottom: 1px solid #EDEDE8;
+  }
+  .inv-meta-cell {
+    padding: 1.5rem 2.5rem;
+  }
+  .inv-meta-cell:first-child { border-right: 1px solid #EDEDE8; }
+  .inv-meta-cell label {
+    display: block; font-size: 0.68rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--mid); margin-bottom: 0.4rem;
+  }
+  .inv-meta-cell strong {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 0.95rem; display: block; margin-bottom: 0.15rem;
+  }
+  .inv-meta-cell span { font-size: 0.82rem; color: var(--mid); }
+
+  .inv-table { padding: 2rem 2.5rem; }
+  .inv-table-header {
+    display: grid; grid-template-columns: 1fr 70px 110px 110px;
+    gap: 0.5rem; padding: 0 0 0.75rem;
+    border-bottom: 1px solid #EDEDE8;
+    font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--mid);
+  }
+  .inv-table-header .align-right, .inv-row .align-right { text-align: right; }
+  .inv-row {
+    display: grid; grid-template-columns: 1fr 70px 110px 110px;
+    gap: 0.5rem; padding: 1rem 0;
+    border-bottom: 1px solid #EDEDE8;
+    align-items: center;
+  }
+  .inv-row:last-child { border-bottom: none; }
+  .inv-item-name { font-weight: 500; font-size: 0.9rem; }
+  .inv-item-desc { font-size: 0.78rem; color: var(--mid); margin-top: 0.15rem; }
+  .inv-row .qty, .inv-row .unit { font-size: 0.88rem; }
+
+  .inv-totals {
+    background: #F8F7F4; border-radius: 12px;
+    margin: 0 2.5rem 2rem; padding: 1.5rem;
+  }
+  .inv-total-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.4rem 0; font-size: 0.9rem;
+  }
+  .inv-total-row.grand {
+    border-top: 2px solid #EDEDE8; margin-top: 0.5rem; padding-top: 1rem;
+  }
+  .inv-total-row.grand span:first-child {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem;
+  }
+  .inv-total-row.grand span:last-child {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem;
+    color: var(--accent);
+  }
+
+  .inv-notes {
+    margin: 0 2.5rem 2rem; padding: 1.25rem 1.5rem;
+    background: #FEF3F0; border-radius: 12px; border-left: 3px solid var(--accent);
+  }
+  .inv-notes label {
+    display: block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem;
+  }
+  .inv-notes p { font-size: 0.85rem; line-height: 1.7; color: #444; }
+
+  /* ─── PAYMENT SECTION ─── */
+  .payment-section {
+    margin: 0 2.5rem 2.5rem;
+    border: 1px solid #EDEDE8; border-radius: 16px; overflow: hidden;
+  }
+  .payment-header {
+    background: var(--ink); color: var(--paper);
+    padding: 1.25rem 1.75rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .payment-header h3 {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem;
+  }
+  .payment-header span {
+    font-size: 0.75rem; color: rgba(245,242,237,0.5);
+    background: rgba(245,242,237,0.08);
+    padding: 0.25rem 0.75rem; border-radius: 100px; border: 1px solid rgba(245,242,237,0.12);
+  }
+  .payment-body { padding: 1.75rem; }
+  .payment-info {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;
+  }
+  .payment-field label {
+    display: block; font-size: 0.68rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.08em; color: var(--mid); margin-bottom: 0.5rem;
+  }
+  .payment-field input, .payment-field select {
+    width: 100%; padding: 0.65rem 1rem;
+    border: 1px solid var(--border); border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    background: #FAFAFA; color: var(--ink);
+    outline: none; transition: border-color 0.15s;
+  }
+  .payment-field input:focus, .payment-field select:focus {
+    border-color: var(--accent); background: #fff;
+  }
+  .payment-field.full { grid-column: 1 / -1; }
+
+  .scalev-btn {
+    width: 100%;
+    display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+    background: var(--accent); color: white;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
+    padding: 1rem; border-radius: 12px; border: none; cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    letter-spacing: -0.01em;
+  }
+  .scalev-btn:hover { background: #B04020; }
+  .scalev-btn:active { transform: scale(0.99); }
+  .scalev-badge {
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    margin-top: 0.75rem; font-size: 0.75rem; color: var(--mid);
+  }
+  .scalev-badge::before { content: '🔒'; }
+
+  /* ─── PAYMENT SUCCESS ─── */
+  .payment-success {
+    display: none; text-align: center; padding: 2rem 1.75rem;
+  }
+  .success-icon {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: #E2F5EE; display: flex; align-items: center; justify-content: center;
+    font-size: 1.75rem; margin: 0 auto 1.25rem;
+    animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  @keyframes popIn {
+    from { transform: scale(0); } to { transform: scale(1); }
+  }
+  .payment-success h3 {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  .payment-success p { font-size: 0.875rem; color: var(--mid); }
+  .payment-success .ref-code {
+    display: inline-block;
+    background: var(--warm); border: 1px solid var(--border);
+    border-radius: 8px; padding: 0.4rem 1rem;
+    font-family: monospace; font-size: 0.9rem; font-weight: 700;
+    margin: 0.75rem auto; letter-spacing: 0.05em;
+  }
+
+  /* ─── MODAL CLOSE ─── */
+  .modal-close {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--warm); border: 1px solid var(--border);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: var(--mid);
+    transition: background 0.15s;
+    z-index: 10;
+  }
+  .modal-close:hover { background: var(--border); color: var(--ink); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 0.8rem; color: var(--mid);
+  }
+  footer strong { color: var(--ink); font-family: 'Syne', sans-serif; font-weight: 700; }
+
+  /* Loading spinner */
+  .spinner {
+    width: 18px; height: 18px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    display: none;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    nav { padding: 1rem 1.25rem; }
+    .hero { padding: 3rem 1.25rem 2.5rem; }
+    section { padding: 0 1.25rem 3rem; }
+    .cta-area { padding: 2rem 1.5rem; }
+    .inv-header { flex-direction: column; gap: 1.5rem; padding: 1.75rem 1.5rem; }
+    .inv-title-block { text-align: left; }
+    .inv-meta { grid-template-columns: 1fr; }
+    .inv-meta-cell:first-child { border-right: none; border-bottom: 1px solid #EDEDE8; }
+    .inv-meta-cell { padding: 1.25rem 1.5rem; }
+    .inv-table { padding: 1.5rem; }
+    .inv-table-header { grid-template-columns: 1fr 50px 90px; }
+    .inv-table-header .align-right:last-child { display: none; }
+    .inv-row { grid-template-columns: 1fr 50px 90px; }
+    .inv-row .align-right:nth-child(3) { display: none; }
+    .inv-totals, .inv-notes { margin: 0 1.5rem 1.5rem; }
+    .payment-section { margin: 0 1.5rem 2rem; }
+    .payment-info { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    .modal-overlay { padding: 0; align-items: flex-end; }
+    .invoice-modal { border-radius: 20px 20px 0 0; max-height: 95vh; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="logo">pixel<span>dew</span>.xyz</div>
+  <div class="nav-tag">Proposal Resmi</div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<div class="hero">
+  <div class="hero-eyebrow">Proposal Pengembangan Website · Phase 1</div>
+  <h1>Solusi digital untuk <em>kadobajo.id</em> — siap tampil, siap iklan.</h1>
+  <p class="hero-sub">
+    pixeldew.xyz hadir sebagai vendor teknis untuk membangun fondasi digital kadobajo.id — mulai dari landing page yang convert, sistem CRM berbasis data, hingga tracking pixel yang akurat untuk mendukung kampanye ads sejak hari pertama.
+  </p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <label>Klien</label>
+      <span>kadobajo.id</span>
+    </div>
+    <div class="hero-meta-item">
+      <label>Fase</label>
+      <span>Phase 1 — Traffic Generation</span>
+    </div>
+    <div class="hero-meta-item">
+      <label>Durasi</label>
+      <span>5 Hari Kerja</span>
+    </div>
+    <div class="hero-meta-item">
+      <label>Go-Live Target</label>
+      <span>22 April 2026</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─── KENAPA PIXELDEW ─── -->
+<div class="section-divider"><span>Kenapa pixeldew?</span></div>
+<section>
+  <h2>Kami tidak hanya bangun website.<br/>Kami bangun mesin pertumbuhan.</h2>
+  <p class="section-sub">Setiap keputusan teknis kami didasarkan pada satu tujuan: data yang bagus untuk iklan yang efektif.</p>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon red">🎯</div>
+      <h3>Ads-First Engineering</h3>
+      <p>Setiap baris kode ditulis dengan mempertimbangkan kebutuhan iklan — pixel akurat, data clean, dan struktur yang memudahkan Lookalike Audience.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon blue">⚡</div>
+      <h3>Speed & Performance</h3>
+      <p>Target LCP &lt;2.5s dan CLS &lt;0.1. Landing page yang cepat load = conversion rate yang lebih tinggi dan biaya iklan lebih efisien.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon green">🧩</div>
+      <h3>CMS Tanpa Developer</h3>
+      <p>Payload CMS self-hosted memungkinkan tim kadobajo edit konten landing page kapan saja tanpa perlu bantuan teknis.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon amber">📊</div>
+      <h3>Data yang Siap Pakai</h3>
+      <p>Database CRM terstruktur dengan format LAL-ready untuk Meta Ads. Export CSV/JSON langsung dari dashboard admin.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SCOPE PEKERJAAN ─── -->
+<div class="section-divider"><span>Scope Pekerjaan</span></div>
+<section>
+  <h2>Phase 1 — Traffic Generation</h2>
+  <p class="section-sub">Output: Landing page live + pixel aktif + CRM mulai mengumpulkan data audience</p>
+  <div class="phase-block">
+    <div class="phase-header">
+      <div style="display:flex;align-items:center;gap:0.75rem;">
+        <span class="phase-badge p1">Phase 1</span>
+        <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;">Landing Page + CRM + Pixel & Tracking</span>
+      </div>
+      <span class="phase-price">Rp 16.500.000</span>
+    </div>
+    <div class="phase-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;flex-wrap:wrap;">
+        <div>
+          <p class="phase-title">🏗 Landing Page System + CRM Database</p>
+          <ul class="deliverable-list">
+            <li>Landing page multi-slug /lp/[campaign] — mobile-first</li>
+            <li>Fixed template: Hero → Benefits → Testimonial → CTA → FAQ</li>
+            <li>Konten dikelola dari Payload CMS (tanpa re-deploy)</li>
+            <li>Database CRM: tabel leads, customers, transactions</li>
+            <li>Form capture dengan validasi phone format internasional (+62)</li>
+            <li>Auto-sync leads → customers (INSERT / UPDATE)</li>
+            <li>Admin dashboard CRM: filter, tag, export CSV/JSON LAL-ready</li>
+            <li>Auth system: admin role + protected routes</li>
+            <li>SEO foundation: sitemap.xml, robots.txt, JSON-LD, OG tags</li>
+            <li>Email konfirmasi otomatis via Resend (3 bahasa)</li>
+          </ul>
+        </div>
+        <div>
+          <p class="phase-title">📡 Pixel & Tracking Setup (3 Platform)</p>
+          <ul class="deliverable-list">
+            <li>Meta Pixel — PageView, ViewContent, Lead event</li>
+            <li>Google Tag Manager container + GA4 property setup</li>
+            <li>TikTok Pixel — PageView, Lead event</li>
+            <li>dataLayer push untuk semua event form submission</li>
+            <li>Verifikasi via Meta Events Manager + GTM Preview Mode</li>
+            <li>Dokumentasi event tracking untuk tim ads</li>
+          </ul>
+          <div style="margin-top:1.5rem;padding:1rem;background:#F8F7F4;border-radius:10px;">
+            <p style="font-size:0.78rem;color:var(--mid);margin-bottom:0.75rem;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;">Infrastruktur yang Digunakan</p>
+            <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+              <span style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.75rem;">Next.js 14</span>
+              <span style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.75rem;">Payload CMS</span>
+              <span style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.75rem;">Supabase</span>
+              <span style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.75rem;">Vercel</span>
+              <span style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.75rem;">Hostinger KVM1</span>
+              <span style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.75rem;">Prisma ORM</span>
+              <span style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.75rem;">Resend</span>
+              <span style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.75rem;">Tailwind CSS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TIMELINE ─── -->
+<div class="section-divider"><span>Timeline Eksekusi</span></div>
+<section>
+  <h2>5 Hari Kerja, Terukur.</h2>
+  <p class="section-sub">Setiap hari ada deliverable yang jelas dan bisa diverifikasi.</p>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot">1</div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <div class="tl-day">Day 1 · 15 April</div>
+        <div class="tl-title">Setup & Foundation</div>
+        <div class="tl-desc">GitHub repo, CI/CD pipeline, domain kadobajo.id → Vercel, Payload CMS di VPS, Supabase schema (3 tabel), NextAuth setup, staging deploy.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot">2</div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <div class="tl-day">Day 2 · 16 April</div>
+        <div class="tl-title">Landing Page</div>
+        <div class="tl-desc">Build semua section komponen LP, integrasi Payload CMS, form lead capture dengan validasi Zod, test cross-device di staging.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot">3</div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <div class="tl-day">Day 3 · 17 April</div>
+        <div class="tl-title">Form → Database + Pixel Setup</div>
+        <div class="tl-desc">API endpoint /api/leads, sync logic ke customers, GTM container, Meta Pixel + TikTok Pixel via GTM, dataLayer event push.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot">4</div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <div class="tl-day">Day 4 · 18 April</div>
+        <div class="tl-title">CRM Admin + SEO Foundation</div>
+        <div class="tl-desc">Dashboard admin /admin/crm, export CSV/JSON LAL-ready, sitemap.xml, robots.txt, JSON-LD schema, dynamic OG tags, verifikasi pixel Events Manager.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot">5</div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <div class="tl-day">Day 5 · 22 April</div>
+        <div class="tl-title">QA & Go-Live</div>
+        <div class="tl-desc">Full QA 47-item checklist, cross-browser test, PageSpeed Insights, end-to-end user flow simulation, deploy ke production kadobajo.id ✓</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── AFTER GOLIVE ─── -->
+<div class="section-divider"><span>Pasca Go-Live</span></div>
+<section>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon red">🔧</div>
+      <h3>Minor Revisi</h3>
+      <p>2 kali revisi minor dalam 1 bulan setelah go-live (hingga 20 Mei 2026). Mencakup perubahan konten, copy, dan tampilan ringan.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon blue">🛡</div>
+      <h3>Maintenance 3 Bulan</h3>
+      <p>Pemeliharaan rutin 1x per bulan selama 3 bulan (hingga 20 Juli 2026). Monitoring uptime, update dependensi, dan troubleshooting ringan.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon green">🚀</div>
+      <h3>Phase 2 Ready</h3>
+      <p>Arsitektur Phase 1 dirancang untuk scale ke Phase 2: full e-commerce, cart, payment gateway, order management, dan CMS lengkap.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ─── -->
+<section>
+  <div class="cta-area">
+    <h2>Siap lanjut ke tahap berikutnya?</h2>
+    <p>Setujui proposal ini dan generate invoice resmi Phase 1 sekarang.</p>
+    <button class="btn-primary" onclick="openInvoice()">
+      ✓ &nbsp;Setujui & Buat Invoice
+    </button>
+    <button class="btn-secondary" onclick="window.open('mailto:hello@pixeldew.xyz','_blank')">
+      Diskusi dulu →
+    </button>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div><strong>pixeldew.xyz</strong> — Digital Engineering Studio</div>
+  <div>Proposal untuk kadobajo.id · April 2026 · Konfidensial</div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════
+     INVOICE MODAL
+═══════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="invoiceModal">
+  <div class="invoice-modal" style="position:relative;">
+
+    <button class="modal-close" onclick="closeInvoice()">✕</button>
+
+    <!-- HEADER -->
+    <div class="inv-header">
+      <div>
+        <div class="inv-logo">pixel<span>dew</span>.xyz</div>
+        <div class="inv-from">
+          pixeldew.xyz · Digital Engineering Studio<br/>
+          hello@pixeldew.xyz<br/>
+          Indonesia
+        </div>
+      </div>
+      <div class="inv-title-block">
+        <div class="inv-label">INVOICE</div>
+        <div class="inv-number" id="invNumber">Generating...</div>
+        <div class="inv-status">Menunggu Pembayaran</div>
+      </div>
+    </div>
+
+    <!-- META -->
+    <div class="inv-meta">
+      <div class="inv-meta-cell">
+        <label>Ditagihkan Kepada</label>
+        <strong>kadobajo.id</strong>
+        <span>B2C E-Commerce · Indonesia</span>
+      </div>
+      <div class="inv-meta-cell">
+        <label>Tanggal Invoice</label>
+        <strong id="invDate">—</strong>
+        <span>Jatuh tempo: <span id="invDue">—</span></span>
+      </div>
+    </div>
+
+    <!-- ITEMS TABLE -->
+    <div class="inv-table">
+      <div class="inv-table-header">
+        <div>Deskripsi</div>
+        <div>Qty</div>
+        <div class="align-right">Harga Satuan</div>
+        <div class="align-right">Total</div>
+      </div>
+
+      <div class="inv-row">
+        <div>
+          <div class="inv-item-name">Landing Page + CRM Database Custom + CMS Landing Page</div>
+          <div class="inv-item-desc">Landing page multi-campaign, Payload CMS, database leads/customers/transactions, admin dashboard, export LAL, SEO foundation, email konfirmasi, auth system.</div>
+        </div>
+        <div class="qty">1</div>
+        <div class="align-right">Rp 13.500.000</div>
+        <div class="align-right"><strong>Rp 13.500.000</strong></div>
+      </div>
+
+      <div class="inv-row">
+        <div>
+          <div class="inv-item-name">Pixel & Tracking Setup</div>
+          <div class="inv-item-desc">Setup & verifikasi: Meta Pixel, Google Tag Manager + GA4, TikTok Pixel. Termasuk event tracking PageView, ViewContent, Lead.</div>
+        </div>
+        <div class="qty">3</div>
+        <div class="align-right">Rp 1.000.000</div>
+        <div class="align-right"><strong>Rp 3.000.000</strong></div>
+      </div>
+    </div>
+
+    <!-- TOTALS -->
+    <div class="inv-totals">
+      <div class="inv-total-row">
+        <span>Subtotal</span>
+        <span>Rp 16.500.000</span>
+      </div>
+      <div class="inv-total-row">
+        <span>Pajak (0% — NETT)</span>
+        <span>Rp 0</span>
+      </div>
+      <div class="inv-total-row grand">
+        <span>Total Tagihan</span>
+        <span>Rp 16.500.000</span>
+      </div>
+    </div>
+
+    <!-- NOTES -->
+    <div class="inv-notes">
+      <label>📋 Catatan & Ketentuan</label>
+      <p>
+        <strong>Status:</strong> Landing Page & CRM sudah live di domain kadobajo.id<br/>
+        <strong>Minor Revisi:</strong> 2x hingga 20 Mei 2026 (1 bulan)<br/>
+        <strong>Maintenance:</strong> 3 bulan hingga 20 Juli 2026 (1x per bulan)<br/>
+        <strong>Harga:</strong> NETT — tidak ada biaya tambahan di luar tagihan ini<br/>
+        <strong>Pembayaran:</strong> Transfer penuh sebelum atau saat go-live
+      </p>
+    </div>
+
+    <!-- PAYMENT -->
+    <div class="payment-section">
+      <div class="payment-header">
+        <h3>💳 Pembayaran via Scalev</h3>
+        <span>Powered by scalev.id</span>
+      </div>
+
+      <div class="payment-body" id="paymentForm">
+        <p style="font-size:0.85rem;color:var(--mid);margin-bottom:1.25rem;">Lengkapi informasi di bawah untuk memproses pembayaran melalui Scalev — platform pembayaran terpercaya untuk bisnis digital Indonesia.</p>
+
+        <div class="payment-info">
+          <div class="payment-field">
+            <label>Nama Penanggung Jawab</label>
+            <input type="text" id="payerName" placeholder="Nama lengkap" value="kadobajo.id"/>
+          </div>
+          <div class="payment-field">
+            <label>Email</label>
+            <input type="email" id="payerEmail" placeholder="email@domain.com"/>
+          </div>
+          <div class="payment-field">
+            <label>Nomor WhatsApp</label>
+            <input type="tel" id="payerPhone" placeholder="+6281234567890"/>
+          </div>
+          <div class="payment-field">
+            <label>Metode Pembayaran</label>
+            <select id="payMethod">
+              <option value="va_bca">Virtual Account BCA</option>
+              <option value="va_bni">Virtual Account BNI</option>
+              <option value="va_mandiri">Virtual Account Mandiri</option>
+              <option value="qris">QRIS</option>
+              <option value="cc">Kartu Kredit / Debit</option>
+              <option value="transfer">Transfer Bank Manual</option>
+            </select>
+          </div>
+          <div class="payment-field full">
+            <label>Catatan (Opsional)</label>
+            <input type="text" id="payNote" placeholder="Misal: PO number, referensi internal..."/>
+          </div>
+        </div>
+
+        <button class="scalev-btn" id="scalevBtn" onclick="processPayment()">
+          <div class="spinner" id="paySpinner"></div>
+          <span id="scalevBtnText">Bayar Rp 16.500.000 via Scalev →</span>
+        </button>
+        <div class="scalev-badge">
+          Pembayaran aman & terenkripsi · scalev.id
+        </div>
+      </div>
+
+      <!-- SUCCESS STATE -->
+      <div class="payment-success" id="paymentSuccess">
+        <div class="success-icon">✅</div>
+        <h3>Pembayaran Berhasil Diproses!</h3>
+        <p>Scalev sedang memproses transaksi Anda.</p>
+        <div class="ref-code" id="refCode">—</div>
+        <p style="margin-top:0.5rem;">Konfirmasi akan dikirim ke email dalam beberapa menit.<br/>Tim pixeldew akan menghubungi Anda segera.</p>
+        <button class="btn-primary" style="margin-top:1.5rem;font-size:0.875rem;" onclick="downloadReceipt()">
+          ↓ &nbsp;Unduh Bukti Pembayaran
+        </button>
+      </div>
+    </div>
+
+    <div style="padding:1rem 2.5rem 2.5rem;text-align:center;">
+      <p style="font-size:0.78rem;color:var(--mid);">Ada pertanyaan? Hubungi kami di <strong>hello@pixeldew.xyz</strong> atau WhatsApp: <strong>+62 81x xxxx xxxx</strong></p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ─── INVOICE HELPERS ───
+function generateInvoiceNumber() {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = String(now.getMonth()+1).padStart(2,'0');
+  const d = String(now.getDate()).padStart(2,'0');
+  const rand = Math.floor(Math.random()*900)+100;
+  return `PDW-${y}${m}${d}-${rand}`;
+}
+
+function formatDate(date) {
+  return date.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' });
+}
+
+function openInvoice() {
+  const now = new Date();
+  const due = new Date(now); due.setDate(due.getDate()+7);
+
+  document.getElementById('invNumber').textContent = generateInvoiceNumber();
+  document.getElementById('invDate').textContent = formatDate(now);
+  document.getElementById('invDue').textContent = formatDate(due);
+
+  document.getElementById('invoiceModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeInvoice() {
+  document.getElementById('invoiceModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Close on overlay click
+document.getElementById('invoiceModal').addEventListener('click', function(e) {
+  if (e.target === this) closeInvoice();
+});
+
+// ─── SCALEV PAYMENT INTEGRATION ───
+// scalev.id uses a redirect/checkout flow:
+// 1. POST to Scalev API to create a payment order → get checkout_url
+// 2. Redirect user to checkout_url (or open in iframe)
+// 3. Scalev handles all payment methods & returns to your callback_url
+
+async function processPayment() {
+  const name    = document.getElementById('payerName').value.trim();
+  const email   = document.getElementById('payerEmail').value.trim();
+  const phone   = document.getElementById('payerPhone').value.trim();
+  const method  = document.getElementById('payMethod').value;
+  const note    = document.getElementById('payNote').value.trim();
+
+  if (!name || !email || !phone) {
+    alert('Mohon lengkapi nama, email, dan nomor WhatsApp terlebih dahulu.');
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert('Format email tidak valid.');
+    return;
+  }
+
+  const btn     = document.getElementById('scalevBtn');
+  const spinner = document.getElementById('paySpinner');
+  const btnText = document.getElementById('scalevBtnText');
+
+  btn.disabled   = true;
+  spinner.style.display = 'block';
+  btnText.textContent   = 'Menghubungi Scalev...';
+
+  // ─── SCALEV API CALL ───
+  // Replace SCALEV_API_KEY with your actual key from scalev.id dashboard.
+  // Endpoint: https://api.scalev.id/v1/invoices (or /v1/payments — check Scalev docs)
+  //
+  // const SCALEV_API_KEY = 'sk_live_XXXXXXXXXXXXXXXXXXXXXXXX';
+  // const payload = {
+  //   amount: 16500000,
+  //   currency: 'IDR',
+  //   customer: { name, email, phone },
+  //   items: [
+  //     { name: 'Landing Page + CRM Database + CMS Landing Page', qty: 1, price: 13500000 },
+  //     { name: 'Pixel & Tracking Setup (3 platform)', qty: 3, price: 1000000 }
+  //   ],
+  //   payment_method: method,
+  //   notes: note || 'Invoice Phase 1 kadobajo.id',
+  //   invoice_number: document.getElementById('invNumber').textContent,
+  //   callback_url: 'https://pixeldew.xyz/payment/success',
+  //   redirect_url: 'https://kadobajo.id'
+  // };
+  //
+  // try {
+  //   const res = await fetch('https://api.scalev.id/v1/invoices', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': `Bearer ${SCALEV_API_KEY}`
+  //     },
+  //     body: JSON.stringify(payload)
+  //   });
+  //   const data = await res.json();
+  //   if (data.checkout_url) {
+  //     window.location.href = data.checkout_url; // Redirect to Scalev checkout
+  //   } else {
+  //     throw new Error(data.message || 'Gagal membuat order');
+  //   }
+  // } catch (err) {
+  //   alert('Terjadi kesalahan: ' + err.message);
+  //   resetPayBtn();
+  // }
+  // ──────────────────────────────────────
+
+  // DEMO: Simulate API call (remove this block when using real Scalev API above)
+  await new Promise(r => setTimeout(r, 2200));
+  showPaymentSuccess(name, email);
+}
+
+function showPaymentSuccess(name, email) {
+  const invNo = document.getElementById('invNumber').textContent;
+  const ref   = 'SCV-' + invNo + '-' + Date.now().toString().slice(-6);
+
+  document.getElementById('refCode').textContent = ref;
+  document.getElementById('paymentForm').style.display = 'none';
+  document.getElementById('paymentSuccess').style.display = 'block';
+}
+
+function resetPayBtn() {
+  const btn     = document.getElementById('scalevBtn');
+  const spinner = document.getElementById('paySpinner');
+  const btnText = document.getElementById('scalevBtnText');
+  btn.disabled  = false;
+  spinner.style.display = 'none';
+  btnText.textContent   = 'Bayar Rp 16.500.000 via Scalev →';
+}
+
+function downloadReceipt() {
+  const invNo = document.getElementById('invNumber').textContent;
+  const ref   = document.getElementById('refCode').textContent;
+  const date  = document.getElementById('invDate').textContent;
+
+  const content = [
+    'BUKTI PEMBAYARAN — pixeldew.xyz',
+    '================================',
+    '',
+    'No. Invoice : ' + invNo,
+    'Ref Scalev  : ' + ref,
+    'Tanggal     : ' + date,
+    'Klien       : kadobajo.id',
+    '',
+    'DETAIL PEMBAYARAN',
+    '-----------------',
+    'Landing Page + CRM + CMS Landing Page   Rp 13.500.000',
+    'Pixel & Tracking Setup (3 platform)     Rp  3.000.000',
+    '                                       ─────────────',
+    'TOTAL NETT                              Rp 16.500.000',
+    '',
+    'CATATAN',
+    '-------',
+    '- Landing Page & CRM sudah live di kadobajo.id',
+    '- Minor Revisi: 2x hingga 20 Mei 2026',
+    '- Maintenance: 3 bulan hingga 20 Juli 2026',
+    '',
+    'pixeldew.xyz · hello@pixeldew.xyz',
+    'Diproses via scalev.id'
+  ].join('\n');
+
+  const blob = new Blob([content], { type: 'text/plain' });
+  const a    = document.createElement('a');
+  a.href     = URL.createObjectURL(blob);
+  a.download = 'Invoice-' + invNo + '-pixeldew.txt';
+  a.click();
+}
+
+// ESC key to close
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeInvoice();
+});
+</script>
+</body>
+</html>
