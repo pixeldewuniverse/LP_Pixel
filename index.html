@@ -54,7 +54,7 @@
     line-height: 0;
   }
   .logo img {
-    width: clamp(100px, 12vw, 125px);
+    width: clamp(118px, 12vw, 156px);
     height: auto;
     display: block;
     object-fit: contain;
@@ -251,11 +251,12 @@
 
   /* ─── INVOICE MODAL ─── */
   .invoice-modal {
-    background: #fff;
+    background: linear-gradient(180deg, rgba(9, 4, 34, 0.98) 0%, rgba(8, 6, 30, 0.98) 100%);
     border-radius: 20px;
     width: 100%; max-width: 680px;
     max-height: 90vh; overflow-y: auto;
-    box-shadow: 0 32px 80px rgba(0,0,0,0.25);
+    border: 1px solid rgba(24, 216, 255, 0.2);
+    box-shadow: 0 32px 80px rgba(0,0,0,0.45);
     animation: slideUp 0.3s cubic-bezier(0.34,1.56,0.64,1);
   }
   @keyframes slideUp {
@@ -266,7 +267,8 @@
   .inv-header {
     display: flex; justify-content: space-between; align-items: flex-start;
     padding: 2.5rem 2.5rem 2rem;
-    border-bottom: 1px solid #EDEDE8;
+    border-bottom: 1px solid rgba(24, 216, 255, 0.22);
+    background: radial-gradient(circle at 0% 0%, rgba(43, 255, 184, 0.1), transparent 45%);
   }
   .inv-logo {
     font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem;
@@ -286,6 +288,28 @@
     font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em;
     text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 100px;
     margin-top: 0.5rem;
+  }
+  .inv-brandline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #b6f6ff;
+    background: rgba(24, 216, 255, 0.12);
+    border: 1px solid rgba(24, 216, 255, 0.24);
+    border-radius: 999px;
+    padding: 0.25rem 0.75rem;
+  }
+  .inv-brandline::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, var(--accent), var(--accent2));
+    box-shadow: 0 0 10px rgba(43, 255, 184, 0.85);
   }
 
   .inv-meta {
@@ -308,6 +332,32 @@
   .inv-meta-cell span { font-size: 0.82rem; color: var(--mid); }
 
   .inv-table { padding: 2rem 2.5rem; }
+  .inv-summary-strip {
+    margin: 1.4rem 2.5rem 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+  .inv-mini {
+    padding: 0.8rem 0.9rem;
+    border-radius: 10px;
+    border: 1px solid rgba(24, 216, 255, 0.2);
+    background: rgba(9, 22, 58, 0.66);
+  }
+  .inv-mini label {
+    display: block;
+    font-size: 0.65rem;
+    color: #98b7d0;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.25rem;
+  }
+  .inv-mini strong {
+    font-size: 0.86rem;
+    color: #e9fbff;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+  }
   .inv-table-header {
     display: grid; grid-template-columns: 1fr 70px 110px 110px;
     gap: 0.5rem; padding: 0 0 0.75rem;
@@ -540,6 +590,7 @@
     .inv-meta-cell:first-child { border-right: none; border-bottom: 1px solid #EDEDE8; }
     .inv-meta-cell { padding: 1.25rem 1.5rem; }
     .inv-table { padding: 1.5rem; }
+    .inv-summary-strip { margin: 1.2rem 1.5rem 0; grid-template-columns: 1fr; }
     .inv-table-header { grid-template-columns: 1fr 50px 90px; }
     .inv-table-header .align-right:last-child { display: none; }
     .inv-row { grid-template-columns: 1fr 50px 90px; }
@@ -780,6 +831,7 @@
     <!-- HEADER -->
     <div class="inv-header">
       <div>
+        <div class="inv-brandline">Invoice Digital Services</div>
         <div class="inv-logo">pixel<span>dew</span>.xyz</div>
         <div class="inv-from">
           pixeldew.xyz · Digital Engineering Studio<br/>
@@ -805,6 +857,21 @@
         <label>Tanggal Invoice</label>
         <strong id="invDate">—</strong>
         <span>Jatuh tempo: <span id="invDue">—</span></span>
+      </div>
+    </div>
+
+    <div class="inv-summary-strip">
+      <div class="inv-mini">
+        <label>Scope</label>
+        <strong>Phase 1 Delivery</strong>
+      </div>
+      <div class="inv-mini">
+        <label>Timeline</label>
+        <strong>5 Hari Kerja</strong>
+      </div>
+      <div class="inv-mini">
+        <label>Status</label>
+        <strong>Go-live Ready</strong>
       </div>
     </div>
 
