@@ -11,7 +11,7 @@
 <!-- Sandbox : https://app.sandbox.midtrans.com/snap/snap.js -->
 <!-- Production: https://app.midtrans.com/snap/snap.js -->
 <script src="https://app.sandbox.midtrans.com/snap/snap.js"
-        data-client-key="SB-Mid-client-rHjCDLiC-PyGtc_k"></script>
+        data-client-key="SB-Mid-client-XXXXXXXXXXXXXXXX"></script>
 <style>
   /* ═══════════════════════════════════════════
      PIXELDEW AUTHENTIC STYLE SYSTEM
@@ -77,64 +77,9 @@
     pointer-events: none; z-index: 9999; opacity: 0.22;
   }
 
-  /* ─── NAV ─── */
-  nav {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.1rem 2.5rem;
-    border-bottom: 1px solid var(--border);
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(0, 0, 0, 0.92);
-    backdrop-filter: blur(16px);
-  }
-
-  /* ─── LOGO — pixel text style, matching pixeldew.xyz ─── */
-  .logo {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    line-height: 1;
-    text-decoration: none;
-  }
-
-  /* SVG logo (original) */
-  .logo img {
-    width: clamp(100px, 10vw, 130px);
-    height: auto;
-    display: block;
-    object-fit: contain;
-    filter: drop-shadow(0 0 10px rgba(43, 255, 184, 0.3)) brightness(1.1);
-  }
-
-  /* Text logo fallback / alongside image */
-  .logo-text {
-    font-family: var(--mono);
-    font-weight: 700;
-    font-size: 1.1rem;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-    display: none; /* hidden when img loads */
-  }
-  .logo-text .logo-dot { color: var(--accent); text-shadow: 0 0 12px var(--accent); }
-  .logo-text .logo-sub { font-size: 0.65rem; color: var(--mid); letter-spacing: 0.04em; font-weight: 400; margin-left: 0.25rem; }
-
-  .nav-tag {
-    font-family: var(--mono);
-    font-size: 0.68rem; font-weight: 500;
-    background: transparent;
-    color: var(--accent);
-    border: 1px solid var(--border);
-    padding: 0.3rem 0.85rem; border-radius: 4px;
-    letter-spacing: 0.06em; text-transform: uppercase;
-  }
-  .nav-tag::before { content: '> '; opacity: 0.5; }
-
-  /* ─── TERMINAL PROMPT UTILITY ─── */
-  .mono { font-family: var(--mono); }
-  .prompt::before { content: '$ '; color: var(--accent); opacity: 0.7; }
-
   /* ─── HERO ─── */
   .hero {
-    padding: 5rem 2.5rem 4rem;
+    padding: 3rem 2.5rem 4rem;
     max-width: 900px; margin: 0 auto;
     position: relative;
   }
@@ -799,20 +744,12 @@
 </head>
 <body>
 
-<!-- ─── NAV ─── -->
-<nav>
-  <div class="logo">
-    <!-- Try to load the original SVG asset first -->
-    <img src="assets/Logo3.svg" alt="PixelDew logo"
-         style="width:clamp(100px,10vw,130px);height:auto;filter:drop-shadow(0 0 10px rgba(43,255,184,0.3)) brightness(1.1);"
-         onerror="this.style.display='none';document.getElementById('logo-fallback').style.display='flex'"/>
-    <!-- Inline pixel wordmark fallback — always matches pixeldew.xyz brand -->
-    <span id="logo-fallback" style="display:none;align-items:baseline;gap:0;font-family:'JetBrains Mono','Courier New',monospace;font-weight:700;font-size:1.1rem;letter-spacing:-0.02em;line-height:1;">
-      <span style="color:#eaf9ff;">pixel</span><span style="color:#2bffb8;text-shadow:0 0 14px rgba(43,255,184,0.6);">dew</span><span style="color:#4a5568;font-size:0.7rem;font-weight:400;margin-left:1px;">.xyz</span>
-    </span>
+<!-- ─── LOGO HEADER ─── -->
+<header style="padding:2.5rem 2.5rem 0;text-align:center;">
+  <div style="display:inline-flex;align-items:baseline;gap:0;font-family:'JetBrains Mono','Courier New',monospace;font-weight:700;font-size:1.5rem;letter-spacing:-0.02em;line-height:1;">
+    <span style="color:#eaf9ff;">pixel</span><span style="color:#2bffb8;text-shadow:0 0 16px rgba(43,255,184,0.65);">dew</span><span style="color:#4a5568;font-size:0.85rem;font-weight:400;margin-left:2px;">.xyz</span>
   </div>
-  <div class="nav-tag">Proposal Resmi</div>
-</nav>
+</header>
 
 <!-- ─── HERO ─── -->
 <div class="hero">
