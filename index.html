@@ -6,103 +6,193 @@
 <title>pixeldew.xyz — Proposal Kadobajo.id</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+<!-- Midtrans Snap.js — ganti data-client-key dengan Client Key dari dashboard Midtrans -->
+<!-- Sandbox : https://app.sandbox.midtrans.com/snap/snap.js -->
+<!-- Production: https://app.midtrans.com/snap/snap.js -->
+<script src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="SB-Mid-client-XXXXXXXXXXXXXXXX"></script>
 <style>
+  /* ═══════════════════════════════════════════
+     PIXELDEW AUTHENTIC STYLE SYSTEM
+     Inspired by pixeldew.xyz — pixel-born studio
+     Dark terminal · Neon mint · Monospace precision
+  ═══════════════════════════════════════════ */
+
   :root {
-    --ink: #eaf9ff;
-    --paper: #07001f;
-    --warm: #12063c;
-    --accent: #2bffb8;
-    --accent2: #18d8ff;
-    --mid: #aaa3cf;
-    --border: rgba(43, 255, 184, 0.28);
-    --card: rgba(16, 8, 52, 0.72);
+    /* Core palette — exact pixeldew.xyz colors */
+    --black:   #000000;
+    --deep:    #050010;
+    --navy:    #07001f;
+    --card:    rgba(10, 5, 32, 0.88);
+    --card2:   rgba(4, 14, 40, 0.9);
+    --ink:     #eaf9ff;
+    --mid:     #8fa5b8;
+    --dim:     #4a5568;
+    --accent:  #2bffb8;   /* neon mint — pixeldew signature */
+    --accent2: #18d8ff;   /* cyan */
+    --accent3: #b94aff;   /* purple accent */
+    --border:  rgba(43, 255, 184, 0.2);
+    --border2: rgba(24, 216, 255, 0.15);
+    --glow:    rgba(43, 255, 184, 0.12);
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+    --sans: 'DM Sans', sans-serif;
+    --display: 'Syne', sans-serif;
   }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  /* ─── BODY + BACKGROUND ─── */
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--sans);
     background:
-      radial-gradient(circle at 18% 20%, rgba(22, 255, 196, 0.12), transparent 40%),
-      radial-gradient(circle at 80% 0%, rgba(24, 216, 255, 0.18), transparent 35%),
-      linear-gradient(180deg, #07001f 0%, #080022 45%, #050015 100%);
+      radial-gradient(ellipse 70% 50% at 20% 0%, rgba(43,255,184,0.05) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 40% at 80% 5%, rgba(24,216,255,0.06) 0%, transparent 50%),
+      #000000;
     color: var(--ink);
     line-height: 1.6;
     overflow-x: hidden;
   }
 
-  /* ─── NOISE TEXTURE OVERLAY ─── */
+  /* Pixel grid + scanline overlay — pixeldew terminal aesthetic */
   body::before {
     content: '';
     position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(43,255,184,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(43,255,184,0.025) 1px, transparent 1px),
+      repeating-linear-gradient(
+        0deg, transparent, transparent 3px,
+        rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px
+      );
+    background-size: 40px 40px, 40px 40px, 100% 4px;
+    pointer-events: none; z-index: 9998; opacity: 1;
+  }
+
+  /* Noise grain */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 9999; opacity: 0.18;
+    pointer-events: none; z-index: 9999; opacity: 0.22;
   }
 
   /* ─── NAV ─── */
   nav {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 1.25rem 2.5rem;
+    padding: 1.1rem 2.5rem;
     border-bottom: 1px solid var(--border);
     position: sticky; top: 0; z-index: 100;
-    background: rgba(7, 2, 30, 0.9);
-    backdrop-filter: blur(12px);
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(16px);
   }
+
+  /* ─── LOGO — pixel text style, matching pixeldew.xyz ─── */
   .logo {
     display: inline-flex;
     align-items: center;
-    line-height: 0;
+    gap: 0.5rem;
+    line-height: 1;
+    text-decoration: none;
   }
+
+  /* SVG logo (original) */
   .logo img {
-    width: clamp(118px, 12vw, 156px);
+    width: clamp(100px, 10vw, 130px);
     height: auto;
     display: block;
     object-fit: contain;
-    filter: drop-shadow(0 0 8px rgba(43, 255, 184, 0.16));
+    filter: drop-shadow(0 0 10px rgba(43, 255, 184, 0.3)) brightness(1.1);
   }
+
+  /* Text logo fallback / alongside image */
+  .logo-text {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    display: none; /* hidden when img loads */
+  }
+  .logo-text .logo-dot { color: var(--accent); text-shadow: 0 0 12px var(--accent); }
+  .logo-text .logo-sub { font-size: 0.65rem; color: var(--mid); letter-spacing: 0.04em; font-weight: 400; margin-left: 0.25rem; }
+
   .nav-tag {
-    font-size: 0.75rem; font-weight: 500;
-    background: var(--ink); color: var(--paper);
-    padding: 0.3rem 0.8rem; border-radius: 100px;
-    letter-spacing: 0.04em; text-transform: uppercase;
+    font-family: var(--mono);
+    font-size: 0.68rem; font-weight: 500;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.85rem; border-radius: 4px;
+    letter-spacing: 0.06em; text-transform: uppercase;
   }
+  .nav-tag::before { content: '> '; opacity: 0.5; }
+
+  /* ─── TERMINAL PROMPT UTILITY ─── */
+  .mono { font-family: var(--mono); }
+  .prompt::before { content: '$ '; color: var(--accent); opacity: 0.7; }
 
   /* ─── HERO ─── */
   .hero {
     padding: 5rem 2.5rem 4rem;
     max-width: 900px; margin: 0 auto;
+    position: relative;
   }
+
+  /* Subtle grid bg behind hero */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.18; pointer-events: none;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent);
+  }
+
   .hero-eyebrow {
     display: inline-flex; align-items: center; gap: 0.5rem;
-    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em;
+    font-family: var(--mono);
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.06em;
     text-transform: uppercase; color: var(--accent);
-    border: 1px solid var(--accent); border-radius: 100px;
-    padding: 0.3rem 0.9rem; margin-bottom: 2rem;
+    border: 1px solid var(--border); border-radius: 4px;
+    padding: 0.3rem 0.85rem; margin-bottom: 2rem;
+    background: rgba(43, 255, 184, 0.05);
   }
-  .hero-eyebrow::before { content: '●'; font-size: 0.5rem; }
+  .hero-eyebrow::before { content: '◆ '; font-size: 0.45rem; opacity: 0.7; }
+
   h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    font-weight: 800; line-height: 1.05;
+    font-family: var(--display);
+    font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+    font-weight: 800; line-height: 1.06;
     letter-spacing: -0.04em;
     margin-bottom: 1.5rem;
+    color: var(--ink);
   }
-  h1 em { color: var(--accent); font-style: normal; }
+  h1 em {
+    color: var(--accent);
+    font-style: normal;
+    text-shadow: 0 0 30px rgba(43,255,184,0.35);
+  }
   .hero-sub {
-    font-size: 1.1rem; color: var(--mid); max-width: 580px;
-    font-weight: 300; margin-bottom: 3rem;
+    font-size: 1.05rem; color: var(--mid); max-width: 580px;
+    font-weight: 300; margin-bottom: 3rem; line-height: 1.7;
   }
   .hero-meta {
     display: flex; flex-wrap: wrap; gap: 2rem;
     padding-top: 2rem; border-top: 1px solid var(--border);
   }
   .hero-meta-item label {
-    display: block; font-size: 0.7rem; font-weight: 500;
-    text-transform: uppercase; letter-spacing: 0.08em; color: var(--mid);
-    margin-bottom: 0.25rem;
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.62rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.1em; color: var(--mid);
+    margin-bottom: 0.3rem;
   }
   .hero-meta-item span {
-    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
+    font-family: var(--display); font-weight: 700; font-size: 0.95rem;
+    color: var(--ink);
   }
 
   /* ─── DIVIDER ─── */
@@ -112,78 +202,119 @@
     max-width: 900px;
   }
   .section-divider::before, .section-divider::after {
-    content: ''; flex: 1; height: 1px; background: var(--border);
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
   }
   .section-divider span {
-    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em;
+    font-family: var(--mono);
+    font-size: 0.65rem; font-weight: 500; letter-spacing: 0.12em;
     text-transform: uppercase; color: var(--mid);
     white-space: nowrap;
   }
+  .section-divider span::before { content: '// '; color: var(--accent); opacity: 0.6; }
 
   /* ─── SECTION ─── */
   section { max-width: 900px; margin: 0 auto; padding: 0 2.5rem 4rem; }
+
   h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-family: var(--display);
+    font-size: clamp(1.5rem, 2.8vw, 2rem);
     font-weight: 800; letter-spacing: -0.03em;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem; color: var(--ink);
   }
-  .section-sub { color: var(--mid); margin-bottom: 2rem; font-weight: 300; }
+  .section-sub {
+    font-size: 0.95rem;
+    color: var(--mid); margin-bottom: 2rem; font-weight: 300;
+  }
 
   /* ─── CARDS ─── */
-  .card-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .card-grid { display: grid; gap: 1px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .card-grid { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
   .card {
     background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
     padding: 1.75rem;
-    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+    position: relative;
   }
-  .card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(13,13,15,0.08); }
+  .card:last-child { border-right: none; }
+  .card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .card:hover { background: rgba(43, 255, 184, 0.04); }
+  .card:hover::before { opacity: 1; }
   .card-icon {
-    width: 40px; height: 40px; border-radius: 10px;
+    width: 36px; height: 36px; border-radius: 6px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem; margin-bottom: 1rem;
+    font-size: 1rem; margin-bottom: 1rem;
+    border: 1px solid var(--border);
+    background: rgba(43, 255, 184, 0.06);
   }
-  .card-icon.red { background: #FDE8E2; }
-  .card-icon.blue { background: #E2EEF8; }
-  .card-icon.green { background: #E2F5EE; }
-  .card-icon.amber { background: #FDF4E2; }
-  .card h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; }
-  .card p { font-size: 0.875rem; color: var(--mid); line-height: 1.6; }
+  .card-icon.red, .card-icon.blue, .card-icon.green, .card-icon.amber {
+    background: rgba(43, 255, 184, 0.06);
+    border-color: var(--border);
+  }
+  .card h3 {
+    font-family: var(--mono); font-weight: 700; font-size: 0.9rem;
+    margin-bottom: 0.5rem; color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .card p { font-size: 0.85rem; color: var(--mid); line-height: 1.65; }
 
   /* ─── PHASE BLOCK ─── */
   .phase-block {
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 20px;
+    border-radius: 10px;
     overflow: hidden;
     margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .phase-block::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), transparent);
   }
   .phase-header {
     display: flex; align-items: center; justify-content: space-between;
     padding: 1.25rem 1.75rem;
     border-bottom: 1px solid var(--border);
+    background: rgba(43, 255, 184, 0.03);
   }
   .phase-badge {
-    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.75rem;
-    text-transform: uppercase; letter-spacing: 0.06em;
-    padding: 0.3rem 0.8rem; border-radius: 100px;
+    font-family: var(--mono); font-weight: 700; font-size: 0.68rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 0.25rem 0.7rem; border-radius: 4px;
+    background: rgba(43, 255, 184, 0.1);
+    color: var(--accent);
+    border: 1px solid rgba(43, 255, 184, 0.3);
   }
-  .phase-badge.p1 { background: #FDE8E2; color: var(--accent); }
+  .phase-badge.p1 { background: rgba(43, 255, 184, 0.1); color: var(--accent); }
   .phase-price {
-    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem;
-    color: var(--ink);
+    font-family: var(--mono); font-weight: 700; font-size: 1.3rem;
+    color: var(--accent);
+    text-shadow: 0 0 20px rgba(43,255,184,0.3);
   }
   .phase-body { padding: 1.75rem; }
-  .phase-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem; }
-  .deliverable-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .phase-title {
+    font-family: var(--mono); font-weight: 700; font-size: 0.88rem;
+    margin-bottom: 1rem; color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .deliverable-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
   .deliverable-list li {
     display: flex; align-items: flex-start; gap: 0.75rem;
-    font-size: 0.9rem; color: #333;
+    font-size: 0.875rem; color: var(--mid);
   }
   .deliverable-list li::before {
-    content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 0.05em;
+    content: '→';
+    color: var(--accent); font-family: var(--mono); font-weight: 700;
+    flex-shrink: 0; margin-top: 0.05em; font-size: 0.8rem;
   }
 
   /* ─── TIMELINE ─── */
@@ -195,54 +326,77 @@
   .tl-item:last-child { padding-bottom: 0; }
   .tl-left { display: flex; flex-direction: column; align-items: center; gap: 0; flex-shrink: 0; }
   .tl-dot {
-    width: 32px; height: 32px; border-radius: 50%;
-    background: var(--ink); color: var(--paper);
+    width: 32px; height: 32px; border-radius: 4px;
+    background: rgba(43, 255, 184, 0.1);
+    border: 1px solid var(--border);
+    color: var(--accent);
     display: flex; align-items: center; justify-content: center;
-    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.75rem;
+    font-family: var(--mono); font-weight: 700; font-size: 0.72rem;
     flex-shrink: 0;
   }
   .tl-line { width: 1px; flex: 1; background: var(--border); }
   .tl-item:last-child .tl-line { display: none; }
   .tl-content { padding-top: 0.3rem; }
-  .tl-day { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); margin-bottom: 0.2rem; }
-  .tl-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem; }
-  .tl-desc { font-size: 0.85rem; color: var(--mid); }
+  .tl-day {
+    font-family: var(--mono);
+    font-size: 0.65rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--mid); margin-bottom: 0.2rem;
+  }
+  .tl-title { font-family: var(--mono); font-weight: 700; font-size: 0.92rem; margin-bottom: 0.25rem; color: var(--ink); }
+  .tl-desc { font-size: 0.84rem; color: var(--mid); }
 
   /* ─── CTA AREA ─── */
   .cta-area {
-    background: var(--ink); color: var(--paper);
-    border-radius: 24px; padding: 3rem;
+    background: rgba(5, 12, 35, 0.95);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 3rem;
     text-align: center; margin-bottom: 4rem;
+    position: relative; overflow: hidden;
   }
-  .cta-area h2 { color: var(--paper); margin-bottom: 0.75rem; }
-  .cta-area p { color: rgba(245,242,237,0.65); margin-bottom: 2rem; font-weight: 300; }
+  .cta-area::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% -10%, rgba(43, 255, 184, 0.1), transparent 70%);
+    pointer-events: none;
+  }
+  .cta-area h2 { color: var(--ink); margin-bottom: 0.75rem; }
+  .cta-area p { color: var(--mid); margin-bottom: 2rem; font-weight: 300; }
+
+  /* ─── BUTTONS ─── */
   .btn-primary {
     display: inline-flex; align-items: center; gap: 0.6rem;
-    background: var(--accent); color: white;
-    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
-    padding: 1rem 2.5rem; border-radius: 100px;
+    background: var(--accent); color: #030d08;
+    font-family: var(--mono); font-weight: 700; font-size: 0.88rem;
+    padding: 0.9rem 2.2rem; border-radius: 6px;
     border: none; cursor: pointer;
-    transition: transform 0.15s, box-shadow 0.15s;
-    letter-spacing: -0.01em;
+    transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
   }
-  .btn-primary:hover { transform: scale(1.03); box-shadow: 0 8px 28px rgba(200,80,42,0.45); }
+  .btn-primary:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 0 30px rgba(43,255,184,0.4), 0 4px 16px rgba(43,255,184,0.2);
+    transform: translateY(-1px);
+  }
   .btn-primary:active { transform: scale(0.98); }
+
   .btn-secondary {
     display: inline-flex; align-items: center; gap: 0.6rem;
-    background: transparent; color: rgba(245,242,237,0.7);
-    font-size: 0.875rem; padding: 0.75rem 1.5rem; border-radius: 100px;
-    border: 1px solid rgba(245,242,237,0.2); cursor: pointer;
+    background: transparent; color: var(--mid);
+    font-family: var(--mono); font-size: 0.82rem; padding: 0.75rem 1.5rem; border-radius: 6px;
+    border: 1px solid var(--border); cursor: pointer;
     margin-left: 0.75rem;
     transition: border-color 0.15s, color 0.15s;
-    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.02em;
   }
-  .btn-secondary:hover { border-color: rgba(245,242,237,0.5); color: var(--paper); }
+  .btn-secondary:hover { border-color: var(--border2); color: var(--ink); }
 
   /* ─── MODAL OVERLAY ─── */
   .modal-overlay {
     position: fixed; inset: 0;
-    background: rgba(13,13,15,0.6);
-    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 8, 0.82);
+    backdrop-filter: blur(12px);
     z-index: 1000;
     display: none; align-items: center; justify-content: center;
     padding: 1.5rem;
@@ -251,327 +405,365 @@
 
   /* ─── INVOICE MODAL ─── */
   .invoice-modal {
-    background: linear-gradient(180deg, rgba(9, 4, 34, 0.98) 0%, rgba(8, 6, 30, 0.98) 100%);
-    border-radius: 20px;
+    background: #050010;
+    border-radius: 10px;
     width: 100%; max-width: 680px;
     max-height: 90vh; overflow-y: auto;
-    border: 1px solid rgba(24, 216, 255, 0.2);
-    box-shadow: 0 32px 80px rgba(0,0,0,0.45);
+    border: 1px solid var(--border);
+    box-shadow:
+      0 0 0 1px rgba(43,255,184,0.06),
+      0 32px 80px rgba(0,0,0,0.7),
+      inset 0 1px 0 rgba(43,255,184,0.08);
     animation: slideUp 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(43,255,184,0.2) transparent;
   }
+  .invoice-modal::-webkit-scrollbar { width: 4px; }
+  .invoice-modal::-webkit-scrollbar-track { background: transparent; }
+  .invoice-modal::-webkit-scrollbar-thumb { background: rgba(43,255,184,0.2); border-radius: 99px; }
+
   @keyframes slideUp {
-    from { transform: translateY(40px); opacity: 0; }
+    from { transform: translateY(30px); opacity: 0; }
     to   { transform: translateY(0);    opacity: 1; }
   }
 
+  /* ─── INV HEADER ─── */
   .inv-header {
     display: flex; justify-content: space-between; align-items: flex-start;
     padding: 2.5rem 2.5rem 2rem;
-    border-bottom: 1px solid rgba(24, 216, 255, 0.22);
-    background: radial-gradient(circle at 0% 0%, rgba(43, 255, 184, 0.1), transparent 45%);
+    border-bottom: 1px solid var(--border);
+    background:
+      radial-gradient(ellipse at -5% -10%, rgba(43, 255, 184, 0.1), transparent 55%),
+      rgba(4, 2, 18, 0.9);
+    position: relative;
   }
+  .inv-header::after {
+    content: '';
+    position: absolute; bottom: -1px; left: 2.5rem; right: 2.5rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(43,255,184,0.4), rgba(24,216,255,0.25), transparent);
+  }
+
+  /* Text logo inside invoice — pixel style matching pixeldew.xyz */
   .inv-logo {
-    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem;
-    letter-spacing: -0.03em; margin-bottom: 0.25rem;
+    font-family: var(--mono);
+    font-weight: 700; font-size: 1.35rem;
+    letter-spacing: -0.02em; margin-bottom: 0.35rem;
+    color: var(--ink);
+    line-height: 1;
   }
-  .inv-logo span { color: var(--accent); }
-  .inv-from { font-size: 0.8rem; color: var(--mid); line-height: 1.8; }
+  .inv-logo .px { color: var(--accent); text-shadow: 0 0 14px rgba(43,255,184,0.5); }
+  .inv-logo .dot-xyz {
+    font-size: 0.72rem; color: var(--mid);
+    letter-spacing: 0.02em; margin-left: 2px;
+    font-weight: 400;
+  }
+
+  .inv-from {
+    font-family: var(--mono);
+    font-size: 0.73rem; color: var(--mid); line-height: 1.9;
+    margin-top: 0.4rem;
+  }
+
   .inv-title-block { text-align: right; }
   .inv-label {
-    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.8rem;
-    letter-spacing: -0.04em; color: var(--ink);
+    font-family: var(--mono); font-weight: 700; font-size: 1.7rem;
+    letter-spacing: 0.06em;
+    color: var(--ink);
   }
-  .inv-number { font-size: 0.8rem; color: var(--mid); margin-top: 0.25rem; }
+  .inv-number {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--mid);
+    margin-top: 0.3rem;
+    letter-spacing: 0.04em;
+  }
   .inv-status {
-    display: inline-block;
-    background: #FDE8E2; color: var(--accent);
-    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em;
-    text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 100px;
-    margin-top: 0.5rem;
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: rgba(43, 255, 184, 0.08);
+    color: var(--accent);
+    border: 1px solid rgba(43, 255, 184, 0.25);
+    font-family: var(--mono);
+    font-size: 0.63rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 4px;
+    margin-top: 0.6rem;
   }
+  .inv-status::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px rgba(43,255,184,0.9);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.75); }
+  }
+
   .inv-brandline {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-    margin-bottom: 0.6rem;
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #b6f6ff;
-    background: rgba(24, 216, 255, 0.12);
-    border: 1px solid rgba(24, 216, 255, 0.24);
-    border-radius: 999px;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    margin-bottom: 0.7rem;
+    font-family: var(--mono);
+    font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: rgba(24, 216, 255, 0.75);
+    background: rgba(24, 216, 255, 0.06);
+    border: 1px solid rgba(24, 216, 255, 0.18);
+    border-radius: 4px;
     padding: 0.25rem 0.75rem;
   }
   .inv-brandline::before {
     content: '';
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: linear-gradient(180deg, var(--accent), var(--accent2));
-    box-shadow: 0 0 10px rgba(43, 255, 184, 0.85);
+    width: 6px; height: 6px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    box-shadow: 0 0 10px rgba(43,255,184,0.8);
   }
 
+  /* ─── INV META ─── */
   .inv-meta {
     display: grid; grid-template-columns: 1fr 1fr;
-    gap: 0; border-bottom: 1px solid #EDEDE8;
+    border-bottom: 1px solid var(--border);
   }
   .inv-meta-cell {
     padding: 1.5rem 2.5rem;
+    background: rgba(4, 2, 18, 0.6);
   }
-  .inv-meta-cell:first-child { border-right: 1px solid #EDEDE8; }
+  .inv-meta-cell:first-child { border-right: 1px solid var(--border); }
   .inv-meta-cell label {
-    display: block; font-size: 0.68rem; font-weight: 500;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    color: var(--mid); margin-bottom: 0.4rem;
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.62rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--mid); margin-bottom: 0.45rem;
   }
   .inv-meta-cell strong {
-    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-family: var(--display); font-weight: 700;
     font-size: 0.95rem; display: block; margin-bottom: 0.15rem;
+    color: var(--ink);
   }
-  .inv-meta-cell span { font-size: 0.82rem; color: var(--mid); }
+  .inv-meta-cell span { font-family: var(--mono); font-size: 0.78rem; color: var(--mid); }
 
-  .inv-table { padding: 2rem 2.5rem; }
+  /* ─── SUMMARY STRIP ─── */
   .inv-summary-strip {
-    margin: 1.4rem 2.5rem 0;
+    margin: 1.25rem 2.5rem 0;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.75rem;
+    gap: 0.6rem;
   }
   .inv-mini {
-    padding: 0.8rem 0.9rem;
-    border-radius: 10px;
-    border: 1px solid rgba(24, 216, 255, 0.2);
-    background: rgba(9, 22, 58, 0.66);
+    padding: 0.85rem 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: rgba(43, 255, 184, 0.03);
+    transition: background 0.2s, border-color 0.2s;
   }
+  .inv-mini:hover { background: rgba(43, 255, 184, 0.07); border-color: rgba(43,255,184,0.3); }
   .inv-mini label {
-    display: block;
-    font-size: 0.65rem;
-    color: #98b7d0;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 0.25rem;
+    display: block; font-family: var(--mono);
+    font-size: 0.6rem; color: var(--mid);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.3rem;
   }
   .inv-mini strong {
-    font-size: 0.86rem;
-    color: #e9fbff;
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
+    font-family: var(--mono); font-size: 0.84rem; color: var(--ink); font-weight: 700;
   }
+
+  /* ─── INV TABLE ─── */
+  .inv-table { padding: 2rem 2.5rem; }
   .inv-table-header {
     display: grid; grid-template-columns: 1fr 70px 110px 110px;
-    gap: 0.5rem; padding: 0 0 0.75rem;
-    border-bottom: 1px solid #EDEDE8;
-    font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em;
+    gap: 0.5rem; padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 0.62rem; font-weight: 600; letter-spacing: 0.1em;
     text-transform: uppercase; color: var(--mid);
   }
   .inv-table-header .align-right, .inv-row .align-right { text-align: right; }
   .inv-row {
     display: grid; grid-template-columns: 1fr 70px 110px 110px;
-    gap: 0.5rem; padding: 1rem 0;
-    border-bottom: 1px solid #EDEDE8;
+    gap: 0.5rem; padding: 1.2rem 0;
+    border-bottom: 1px solid rgba(43, 255, 184, 0.07);
     align-items: center;
   }
   .inv-row:last-child { border-bottom: none; }
-  .inv-item-name { font-weight: 500; font-size: 0.9rem; }
-  .inv-item-desc { font-size: 0.78rem; color: var(--mid); margin-top: 0.15rem; }
-  .inv-row .qty, .inv-row .unit { font-size: 0.88rem; }
+  .inv-item-name { font-weight: 500; font-size: 0.88rem; color: var(--ink); }
+  .inv-item-desc { font-size: 0.76rem; color: var(--mid); margin-top: 0.2rem; line-height: 1.6; }
+  .inv-row .qty, .inv-row .unit { font-family: var(--mono); font-size: 0.85rem; color: var(--mid); }
+  .inv-row .align-right { font-family: var(--mono); color: rgba(200,240,255,0.8); font-size: 0.85rem; }
+  .inv-row .align-right strong { color: var(--accent2); font-weight: 700; }
 
+  /* ─── INV TOTALS ─── */
   .inv-totals {
-    background: #F8F7F4; border-radius: 12px;
-    margin: 0 2.5rem 2rem; padding: 1.5rem;
+    background: rgba(43, 255, 184, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin: 0 2.5rem 2rem; padding: 1.4rem 1.6rem;
   }
   .inv-total-row {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 0.4rem 0; font-size: 0.9rem;
+    padding: 0.35rem 0;
+    font-family: var(--mono); font-size: 0.84rem;
+    color: var(--mid);
   }
   .inv-total-row.grand {
-    border-top: 2px solid #EDEDE8; margin-top: 0.5rem; padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    margin-top: 0.6rem; padding-top: 1rem;
   }
   .inv-total-row.grand span:first-child {
-    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem;
+    font-weight: 700; font-size: 0.92rem; color: var(--ink);
   }
   .inv-total-row.grand span:last-child {
-    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem;
+    font-weight: 700; font-size: 1.3rem;
     color: var(--accent);
+    text-shadow: 0 0 20px rgba(43,255,184,0.35);
   }
 
+  /* ─── INV NOTES ─── */
   .inv-notes {
-    margin: 0 2.5rem 2rem; padding: 1.25rem 1.5rem;
-    background: #FEF3F0; border-radius: 12px; border-left: 3px solid var(--accent);
+    margin: 0 2.5rem 2rem; padding: 1.2rem 1.5rem;
+    background: rgba(43, 255, 184, 0.04);
+    border-radius: 8px;
+    border: 1px solid rgba(43, 255, 184, 0.15);
+    border-left: 3px solid var(--accent);
   }
   .inv-notes label {
-    display: block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem;
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 0.55rem;
   }
-  .inv-notes p { font-size: 0.85rem; line-height: 1.7; color: #444; }
+  .inv-notes p { font-size: 0.83rem; line-height: 1.75; color: var(--mid); }
+  .inv-notes p strong { color: rgba(200, 240, 255, 0.9); }
 
   /* ─── PAYMENT SECTION ─── */
   .payment-section {
     margin: 0 2.5rem 2.5rem;
-    border: 1px solid #EDEDE8; border-radius: 16px; overflow: hidden;
+    border: 1px solid var(--border2);
+    border-radius: 8px; overflow: hidden;
   }
   .payment-header {
-    background: var(--ink); color: var(--paper);
-    padding: 1.25rem 1.75rem;
+    background: rgba(4, 14, 40, 0.95);
+    border-bottom: 1px solid var(--border2);
+    padding: 1.2rem 1.75rem;
     display: flex; align-items: center; justify-content: space-between;
   }
   .payment-header h3 {
-    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem;
+    font-family: var(--mono); font-weight: 700; font-size: 0.88rem;
+    color: var(--ink); letter-spacing: 0.02em;
   }
   .payment-header span {
-    font-size: 0.75rem; color: rgba(245,242,237,0.5);
-    background: rgba(245,242,237,0.08);
-    padding: 0.25rem 0.75rem; border-radius: 100px; border: 1px solid rgba(245,242,237,0.12);
+    font-family: var(--mono); font-size: 0.68rem;
+    color: rgba(24, 216, 255, 0.65);
+    background: rgba(24, 216, 255, 0.08);
+    padding: 0.25rem 0.7rem; border-radius: 4px;
+    border: 1px solid rgba(24, 216, 255, 0.2);
+    letter-spacing: 0.04em;
   }
   .payment-body { padding: 1.75rem; }
   .payment-info {
     display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;
   }
   .payment-field label {
-    display: block; font-size: 0.68rem; font-weight: 500;
-    text-transform: uppercase; letter-spacing: 0.08em; color: var(--mid); margin-bottom: 0.5rem;
+    display: block;
+    font-family: var(--mono); font-size: 0.63rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--mid); margin-bottom: 0.5rem;
   }
   .payment-field input, .payment-field select {
-    width: 100%; padding: 0.65rem 1rem;
-    border: 1px solid var(--border); border-radius: 10px;
-    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
-    background: #FAFAFA; color: var(--ink);
-    outline: none; transition: border-color 0.15s;
+    width: 100%; padding: 0.7rem 1rem;
+    border: 1px solid rgba(43, 255, 184, 0.18); border-radius: 6px;
+    font-family: var(--mono); font-size: 0.84rem;
+    background: rgba(3, 8, 28, 0.9); color: var(--ink);
+    outline: none; transition: border-color 0.2s, box-shadow 0.2s;
   }
+  .payment-field input::placeholder { color: rgba(143, 165, 184, 0.35); }
   .payment-field input:focus, .payment-field select:focus {
-    border-color: var(--accent); background: #fff;
+    border-color: rgba(43, 255, 184, 0.4);
+    box-shadow: 0 0 0 3px rgba(43,255,184,0.06);
   }
+  .payment-field select option { background: #030818; color: var(--ink); }
   .payment-field.full { grid-column: 1 / -1; }
 
-  .scalev-btn {
+  /* ─── MIDTRANS BUTTON ─── */
+  .midtrans-btn {
     width: 100%;
     display: flex; align-items: center; justify-content: center; gap: 0.75rem;
-    background: var(--accent); color: white;
-    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
-    padding: 1rem; border-radius: 12px; border: none; cursor: pointer;
-    transition: background 0.15s, transform 0.1s;
-    letter-spacing: -0.01em;
+    background: var(--accent);
+    color: #030d08;
+    font-family: var(--mono); font-weight: 700; font-size: 0.9rem;
+    padding: 1.05rem; border-radius: 6px; border: none; cursor: pointer;
+    transition: filter 0.15s, transform 0.1s, box-shadow 0.2s;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    box-shadow: 0 4px 24px rgba(43,255,184,0.22);
   }
-  .scalev-btn:hover { background: #B04020; }
-  .scalev-btn:active { transform: scale(0.99); }
-  .scalev-badge {
+  .midtrans-btn:hover {
+    filter: brightness(1.12);
+    box-shadow: 0 0 30px rgba(43,255,184,0.4), 0 6px 20px rgba(43,255,184,0.2);
+  }
+  .midtrans-btn:active { transform: scale(0.99); }
+  .midtrans-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+  .midtrans-badge {
     display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-    margin-top: 0.75rem; font-size: 0.75rem; color: var(--mid);
+    margin-top: 0.75rem;
+    font-family: var(--mono); font-size: 0.68rem; color: var(--dim);
+    letter-spacing: 0.04em;
   }
-  .scalev-badge::before { content: '🔒'; }
+  .midtrans-badge::before { content: '🔒'; }
 
   /* ─── PAYMENT SUCCESS ─── */
   .payment-success {
-    display: none; text-align: center; padding: 2rem 1.75rem;
+    display: none; text-align: center; padding: 2.5rem 1.75rem;
   }
   .success-icon {
-    width: 64px; height: 64px; border-radius: 50%;
-    background: #E2F5EE; display: flex; align-items: center; justify-content: center;
-    font-size: 1.75rem; margin: 0 auto 1.25rem;
+    width: 64px; height: 64px; border-radius: 8px;
+    background: rgba(43, 255, 184, 0.08);
+    border: 1px solid rgba(43, 255, 184, 0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; margin: 0 auto 1.25rem;
     animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    box-shadow: 0 0 28px rgba(43,255,184,0.18);
   }
   @keyframes popIn {
-    from { transform: scale(0); } to { transform: scale(1); }
+    from { transform: scale(0) rotate(-10deg); } to { transform: scale(1) rotate(0deg); }
   }
   .payment-success h3 {
-    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem;
-    margin-bottom: 0.5rem;
+    font-family: var(--mono); font-weight: 700; font-size: 1.1rem;
+    color: var(--ink); margin-bottom: 0.5rem;
   }
-  .payment-success p { font-size: 0.875rem; color: var(--mid); }
+  .payment-success p { font-family: var(--mono); font-size: 0.82rem; color: var(--mid); }
   .payment-success .ref-code {
     display: inline-block;
-    background: var(--warm); border: 1px solid var(--border);
-    border-radius: 8px; padding: 0.4rem 1rem;
-    font-family: monospace; font-size: 0.9rem; font-weight: 700;
-    margin: 0.75rem auto; letter-spacing: 0.05em;
+    background: rgba(43, 255, 184, 0.06);
+    border: 1px solid rgba(43, 255, 184, 0.25);
+    border-radius: 6px; padding: 0.45rem 1.1rem;
+    font-family: var(--mono); font-size: 0.88rem; font-weight: 700;
+    color: var(--accent); margin: 0.75rem auto; letter-spacing: 0.07em;
   }
 
   /* ─── MODAL CLOSE ─── */
   .modal-close {
     position: absolute; top: 1.5rem; right: 1.5rem;
-    width: 36px; height: 36px; border-radius: 50%;
-    background: var(--warm); border: 1px solid var(--border);
+    width: 32px; height: 32px; border-radius: 4px;
+    background: rgba(10, 5, 35, 0.95); border: 1px solid var(--border);
     cursor: pointer; display: flex; align-items: center; justify-content: center;
-    font-size: 1rem; color: var(--mid);
-    transition: background 0.15s;
-    z-index: 10;
+    font-family: var(--mono); font-size: 0.8rem; color: var(--mid);
+    transition: background 0.15s, color 0.15s; z-index: 10;
   }
-  .modal-close:hover { background: var(--border); color: var(--ink); }
+  .modal-close:hover { background: rgba(43, 255, 184, 0.12); color: var(--accent); border-color: var(--border); }
 
   /* ─── FOOTER ─── */
   footer {
     border-top: 1px solid var(--border);
     padding: 2rem 2.5rem;
     display: flex; align-items: center; justify-content: space-between;
-    font-size: 0.8rem; color: var(--mid);
+    font-family: var(--mono); font-size: 0.75rem; color: var(--mid);
   }
-  footer strong { color: var(--ink); font-family: 'Syne', sans-serif; font-weight: 700; }
+  footer strong { color: var(--accent); font-weight: 700; }
 
-  /* ─── PIXELDEW THEME OVERRIDES ─── */
-  .nav-tag {
-    background: rgba(43, 255, 184, 0.16);
-    color: var(--accent);
-    border: 1px solid rgba(43, 255, 184, 0.45);
-  }
-  h1 em { color: var(--accent2); }
-  .card, .phase-block, .invoice-modal {
-    background: var(--card);
-    border-color: var(--border);
-    box-shadow: 0 12px 32px rgba(4, 0, 20, 0.32);
-  }
-  .card:hover { box-shadow: 0 12px 30px rgba(24,216,255,0.16); }
-  .card-icon.red { background: rgba(43, 255, 184, 0.14); }
-  .card-icon.blue { background: rgba(24, 216, 255, 0.14); }
-  .card-icon.green { background: rgba(0, 255, 170, 0.14); }
-  .card-icon.amber { background: rgba(131, 102, 255, 0.2); }
-  .card p, .deliverable-list li, .inv-notes p, .hero-sub, .section-sub, .tl-desc, footer { color: #c4bee5; }
-  .phase-price, .phase-title, .tl-title, .inv-label, .inv-logo, h1, h2, .hero-meta-item span, footer strong { color: #e8f9ff; }
-  .phase-badge.p1, .inv-status { background: rgba(43, 255, 184, 0.16); color: var(--accent); }
-  .cta-area {
-    background: linear-gradient(135deg, rgba(13, 4, 45, 0.95), rgba(5, 18, 52, 0.95));
-    border: 1px solid rgba(24, 216, 255, 0.22);
-  }
-  .btn-primary, .scalev-btn {
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    color: #06111e;
-  }
-  .btn-primary:hover { box-shadow: 0 8px 28px rgba(43,255,184,0.35); }
-  .scalev-btn:hover { filter: brightness(1.08); }
-  .modal-overlay { background: rgba(2, 0, 12, 0.72); }
-  .inv-header, .inv-meta, .inv-table-header, .inv-row, .payment-section, .inv-meta-cell:first-child { border-color: rgba(43, 255, 184, 0.18); }
-  .inv-totals { background: rgba(8, 16, 44, 0.85); }
-  .inv-total-row.grand { border-top-color: rgba(43, 255, 184, 0.2); }
-  .inv-notes { background: rgba(43, 255, 184, 0.08); }
-  .payment-header {
-    background: rgba(8, 18, 47, 0.95);
-    color: #e8f9ff;
-  }
-  .payment-header span {
-    color: rgba(214, 251, 255, 0.72);
-    background: rgba(24, 216, 255, 0.12);
-    border-color: rgba(24, 216, 255, 0.24);
-  }
-  .payment-field input, .payment-field select {
-    background: rgba(5, 14, 40, 0.9);
-    color: #dcf8ff;
-  }
-  .payment-field input:focus, .payment-field select:focus { background: rgba(7, 20, 54, 0.95); }
-  .success-icon { background: rgba(43, 255, 184, 0.16); }
-  [style*="background:#F8F7F4"] { background: rgba(8, 16, 44, 0.85) !important; }
-  [style*="background:#fff"] { background: rgba(12, 8, 38, 0.9) !important; }
-  [style*="border:1px solid var(--border)"] { border-color: rgba(43, 255, 184, 0.28) !important; }
-  .modal-close {
-    background: rgba(16, 10, 46, 0.92);
-    border-color: var(--border);
-  }
-  .modal-close:hover { background: rgba(24, 216, 255, 0.2); color: #ebfdff; }
-
-  /* Loading spinner */
+  /* ─── LOADING SPINNER ─── */
   .spinner {
-    width: 18px; height: 18px;
-    border: 2px solid rgba(255,255,255,0.3);
-    border-top-color: white;
+    width: 16px; height: 16px;
+    border: 2px solid rgba(3, 13, 8, 0.3);
+    border-top-color: #030d08;
     border-radius: 50%;
     animation: spin 0.6s linear infinite;
     display: none;
@@ -583,11 +775,11 @@
     nav { padding: 1rem 1.25rem; }
     .hero { padding: 3rem 1.25rem 2.5rem; }
     section { padding: 0 1.25rem 3rem; }
-    .cta-area { padding: 2rem 1.5rem; }
+    .cta-area { padding: 2rem 1.25rem; }
     .inv-header { flex-direction: column; gap: 1.5rem; padding: 1.75rem 1.5rem; }
     .inv-title-block { text-align: left; }
     .inv-meta { grid-template-columns: 1fr; }
-    .inv-meta-cell:first-child { border-right: none; border-bottom: 1px solid #EDEDE8; }
+    .inv-meta-cell:first-child { border-right: none; border-bottom: 1px solid var(--border); }
     .inv-meta-cell { padding: 1.25rem 1.5rem; }
     .inv-table { padding: 1.5rem; }
     .inv-summary-strip { margin: 1.2rem 1.5rem 0; grid-template-columns: 1fr; }
@@ -600,7 +792,8 @@
     .payment-info { grid-template-columns: 1fr; }
     footer { flex-direction: column; gap: 0.5rem; text-align: center; }
     .modal-overlay { padding: 0; align-items: flex-end; }
-    .invoice-modal { border-radius: 20px 20px 0 0; max-height: 95vh; }
+    .invoice-modal { border-radius: 10px 10px 0 0; max-height: 95vh; }
+    .card-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -609,7 +802,14 @@
 <!-- ─── NAV ─── -->
 <nav>
   <div class="logo">
-    <img src="assets/Logo3.svg" alt="PixelDew logo"/>
+    <!-- Try to load the original SVG asset first -->
+    <img src="assets/Logo3.svg" alt="PixelDew logo"
+         style="width:clamp(100px,10vw,130px);height:auto;filter:drop-shadow(0 0 10px rgba(43,255,184,0.3)) brightness(1.1);"
+         onerror="this.style.display='none';document.getElementById('logo-fallback').style.display='flex'"/>
+    <!-- Inline pixel wordmark fallback — always matches pixeldew.xyz brand -->
+    <span id="logo-fallback" style="display:none;align-items:baseline;gap:0;font-family:'JetBrains Mono','Courier New',monospace;font-weight:700;font-size:1.1rem;letter-spacing:-0.02em;line-height:1;">
+      <span style="color:#eaf9ff;">pixel</span><span style="color:#2bffb8;text-shadow:0 0 14px rgba(43,255,184,0.6);">dew</span><span style="color:#4a5568;font-size:0.7rem;font-weight:400;margin-left:1px;">.xyz</span>
+    </span>
   </div>
   <div class="nav-tag">Proposal Resmi</div>
 </nav>
@@ -679,14 +879,14 @@
     <div class="phase-header">
       <div style="display:flex;align-items:center;gap:0.75rem;">
         <span class="phase-badge p1">Phase 1</span>
-        <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;">Landing Page + CRM + Pixel & Tracking</span>
+        <span style="font-family:var(--mono);font-weight:700;font-size:0.92rem;color:var(--ink);">Landing Page + CRM + Pixel & Tracking</span>
       </div>
       <span class="phase-price">Rp 16.500.000</span>
     </div>
     <div class="phase-body">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;flex-wrap:wrap;">
         <div>
-          <p class="phase-title">🏗 Landing Page System + CRM Database</p>
+          <p class="phase-title"><span style="opacity:0.7">🏗</span> Landing Page System + CRM Database</p>
           <ul class="deliverable-list">
             <li>Landing page multi-slug /lp/[campaign] — mobile-first</li>
             <li>Fixed template: Hero → Benefits → Testimonial → CTA → FAQ</li>
@@ -701,7 +901,7 @@
           </ul>
         </div>
         <div>
-          <p class="phase-title">📡 Pixel & Tracking Setup (3 Platform)</p>
+          <p class="phase-title"><span style="opacity:0.7">📡</span> Pixel & Tracking Setup (3 Platform)</p>
           <ul class="deliverable-list">
             <li>Meta Pixel — PageView, ViewContent, Lead event</li>
             <li>Google Tag Manager container + GA4 property setup</li>
@@ -710,17 +910,17 @@
             <li>Verifikasi via Meta Events Manager + GTM Preview Mode</li>
             <li>Dokumentasi event tracking untuk tim ads</li>
           </ul>
-          <div style="margin-top:1.5rem;padding:1rem;background:#F8F7F4;border-radius:10px;">
-            <p style="font-size:0.78rem;color:var(--mid);margin-bottom:0.75rem;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;">Infrastruktur yang Digunakan</p>
+          <div style="margin-top:1.5rem;padding:1rem 1.1rem;background:rgba(43,255,184,0.03);border:1px solid rgba(43,255,184,0.14);border-radius:6px;">
+            <p style="font-size:0.65rem;color:var(--mid);margin-bottom:0.6rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;font-family:var(--mono);">Infrastruktur yang Digunakan</p>
             <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
-              <span style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.75rem;">Next.js 14</span>
-              <span style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.75rem;">Payload CMS</span>
-              <span style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.75rem;">Supabase</span>
-              <span style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.75rem;">Vercel</span>
-              <span style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.75rem;">Hostinger KVM1</span>
-              <span style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.75rem;">Prisma ORM</span>
-              <span style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.75rem;">Resend</span>
-              <span style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.75rem;">Tailwind CSS</span>
+              <span style="background:rgba(43,255,184,0.05);border:1px solid rgba(43,255,184,0.2);border-radius:4px;padding:0.22rem 0.6rem;font-size:0.72rem;color:rgba(43,255,184,0.85);font-family:var(--mono);letter-spacing:0.02em;">Next.js 14</span>
+              <span style="background:rgba(43,255,184,0.05);border:1px solid rgba(43,255,184,0.2);border-radius:4px;padding:0.22rem 0.6rem;font-size:0.72rem;color:rgba(43,255,184,0.85);font-family:var(--mono);letter-spacing:0.02em;">Payload CMS</span>
+              <span style="background:rgba(43,255,184,0.05);border:1px solid rgba(43,255,184,0.2);border-radius:4px;padding:0.22rem 0.6rem;font-size:0.72rem;color:rgba(43,255,184,0.85);font-family:var(--mono);letter-spacing:0.02em;">Supabase</span>
+              <span style="background:rgba(43,255,184,0.05);border:1px solid rgba(43,255,184,0.2);border-radius:4px;padding:0.22rem 0.6rem;font-size:0.72rem;color:rgba(43,255,184,0.85);font-family:var(--mono);letter-spacing:0.02em;">Vercel</span>
+              <span style="background:rgba(43,255,184,0.05);border:1px solid rgba(43,255,184,0.2);border-radius:4px;padding:0.22rem 0.6rem;font-size:0.72rem;color:rgba(43,255,184,0.85);font-family:var(--mono);letter-spacing:0.02em;">Hostinger KVM1</span>
+              <span style="background:rgba(43,255,184,0.05);border:1px solid rgba(43,255,184,0.2);border-radius:4px;padding:0.22rem 0.6rem;font-size:0.72rem;color:rgba(43,255,184,0.85);font-family:var(--mono);letter-spacing:0.02em;">Prisma ORM</span>
+              <span style="background:rgba(43,255,184,0.05);border:1px solid rgba(43,255,184,0.2);border-radius:4px;padding:0.22rem 0.6rem;font-size:0.72rem;color:rgba(43,255,184,0.85);font-family:var(--mono);letter-spacing:0.02em;">Resend</span>
+              <span style="background:rgba(43,255,184,0.05);border:1px solid rgba(43,255,184,0.2);border-radius:4px;padding:0.22rem 0.6rem;font-size:0.72rem;color:rgba(43,255,184,0.85);font-family:var(--mono);letter-spacing:0.02em;">Tailwind CSS</span>
             </div>
           </div>
         </div>
@@ -806,7 +1006,7 @@
     <h2>Siap lanjut ke tahap berikutnya?</h2>
     <p>Setujui proposal ini dan generate invoice resmi Phase 1 sekarang.</p>
     <button class="btn-primary" onclick="openInvoice()">
-      ✓ &nbsp;Setujui & Buat Invoice
+      <span style="opacity:0.6;margin-right:0.25rem">$</span> Setujui & Buat Invoice
     </button>
     <button class="btn-secondary" onclick="window.open('mailto:hello@pixeldew.xyz','_blank')">
       Diskusi dulu →
@@ -816,8 +1016,8 @@
 
 <!-- ─── FOOTER ─── -->
 <footer>
-  <div><strong>pixeldew.xyz</strong> — Digital Engineering Studio</div>
-  <div>Proposal untuk kadobajo.id · April 2026 · Konfidensial</div>
+  <div><strong>pixel<span style="color:var(--accent)">dew</span>.xyz</strong> <span style="color:var(--dim)">—</span> Digital Engineering Studio</div>
+  <div style="color:var(--dim);">Proposal untuk kadobajo.id · April 2026 · <span style="color:rgba(43,255,184,0.4)">Konfidensial</span></div>
 </footer>
 
 <!-- ═══════════════════════════════════════════════════
@@ -832,7 +1032,9 @@
     <div class="inv-header">
       <div>
         <div class="inv-brandline">Invoice Digital Services</div>
-        <div class="inv-logo">pixel<span>dew</span>.xyz</div>
+        <div class="inv-logo">
+          <span class="px">pixel</span>dew<span class="dot-xyz">.xyz</span>
+        </div>
         <div class="inv-from">
           pixeldew.xyz · Digital Engineering Studio<br/>
           hello@pixeldew.xyz<br/>
@@ -936,12 +1138,12 @@
     <!-- PAYMENT -->
     <div class="payment-section">
       <div class="payment-header">
-        <h3>💳 Pembayaran via Scalev</h3>
-        <span>Powered by scalev.id</span>
+        <h3>💳 Pembayaran via Midtrans</h3>
+        <span>Powered by midtrans.com</span>
       </div>
 
       <div class="payment-body" id="paymentForm">
-        <p style="font-size:0.85rem;color:var(--mid);margin-bottom:1.25rem;">Lengkapi informasi di bawah untuk memproses pembayaran melalui Scalev — platform pembayaran terpercaya untuk bisnis digital Indonesia.</p>
+        <p style="font-size:0.8rem;color:var(--mid);margin-bottom:1.25rem;font-family:var(--mono);line-height:1.7;">Lengkapi informasi di bawah. Midtrans Snap akan membuka popup pembayaran — pilih metode favorit kamu langsung di sana.</p>
 
         <div class="payment-info">
           <div class="payment-field">
@@ -953,32 +1155,33 @@
             <input type="email" id="payerEmail" placeholder="email@domain.com"/>
           </div>
           <div class="payment-field">
-            <label>Nomor WhatsApp</label>
+            <label>Nomor WhatsApp / HP</label>
             <input type="tel" id="payerPhone" placeholder="+6281234567890"/>
           </div>
           <div class="payment-field">
-            <label>Metode Pembayaran</label>
-            <select id="payMethod">
-              <option value="va_bca">Virtual Account BCA</option>
-              <option value="va_bni">Virtual Account BNI</option>
-              <option value="va_mandiri">Virtual Account Mandiri</option>
-              <option value="qris">QRIS</option>
-              <option value="cc">Kartu Kredit / Debit</option>
-              <option value="transfer">Transfer Bank Manual</option>
-            </select>
-          </div>
-          <div class="payment-field full">
             <label>Catatan (Opsional)</label>
             <input type="text" id="payNote" placeholder="Misal: PO number, referensi internal..."/>
           </div>
         </div>
 
-        <button class="scalev-btn" id="scalevBtn" onclick="processPayment()">
+        <!-- Midtrans method pills — informational, Snap handles actual selection -->
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.4rem;">
+          <span style="background:rgba(43,255,184,0.05);border:1px solid rgba(43,255,184,0.18);border-radius:4px;padding:0.22rem 0.65rem;font-size:0.68rem;color:rgba(43,255,184,0.8);font-family:var(--mono);">VA BCA</span>
+          <span style="background:rgba(43,255,184,0.05);border:1px solid rgba(43,255,184,0.18);border-radius:4px;padding:0.22rem 0.65rem;font-size:0.68rem;color:rgba(43,255,184,0.8);font-family:var(--mono);">VA BNI</span>
+          <span style="background:rgba(43,255,184,0.05);border:1px solid rgba(43,255,184,0.18);border-radius:4px;padding:0.22rem 0.65rem;font-size:0.68rem;color:rgba(43,255,184,0.8);font-family:var(--mono);">VA Mandiri</span>
+          <span style="background:rgba(43,255,184,0.05);border:1px solid rgba(43,255,184,0.18);border-radius:4px;padding:0.22rem 0.65rem;font-size:0.68rem;color:rgba(43,255,184,0.8);font-family:var(--mono);">QRIS</span>
+          <span style="background:rgba(43,255,184,0.05);border:1px solid rgba(43,255,184,0.18);border-radius:4px;padding:0.22rem 0.65rem;font-size:0.68rem;color:rgba(43,255,184,0.8);font-family:var(--mono);">GoPay</span>
+          <span style="background:rgba(43,255,184,0.05);border:1px solid rgba(43,255,184,0.18);border-radius:4px;padding:0.22rem 0.65rem;font-size:0.68rem;color:rgba(43,255,184,0.8);font-family:var(--mono);">OVO</span>
+          <span style="background:rgba(43,255,184,0.05);border:1px solid rgba(43,255,184,0.18);border-radius:4px;padding:0.22rem 0.65rem;font-size:0.68rem;color:rgba(43,255,184,0.8);font-family:var(--mono);">Kartu Kredit</span>
+          <span style="background:rgba(43,255,184,0.05);border:1px solid rgba(43,255,184,0.18);border-radius:4px;padding:0.22rem 0.65rem;font-size:0.68rem;color:rgba(43,255,184,0.8);font-family:var(--mono);">+lainnya</span>
+        </div>
+
+        <button class="midtrans-btn" id="midtransBtn" onclick="processPayment()">
           <div class="spinner" id="paySpinner"></div>
-          <span id="scalevBtnText">Bayar Rp 16.500.000 via Scalev →</span>
+          <span id="midtransBtnText">Bayar Rp 16.500.000 via Midtrans →</span>
         </button>
-        <div class="scalev-badge">
-          Pembayaran aman & terenkripsi · scalev.id
+        <div class="midtrans-badge">
+          Pembayaran aman & terenkripsi · midtrans.com
         </div>
       </div>
 
@@ -986,9 +1189,9 @@
       <div class="payment-success" id="paymentSuccess">
         <div class="success-icon">✅</div>
         <h3>Pembayaran Berhasil Diproses!</h3>
-        <p>Scalev sedang memproses transaksi Anda.</p>
+        <p>Midtrans sedang memproses transaksi Anda.</p>
         <div class="ref-code" id="refCode">—</div>
-        <p style="margin-top:0.5rem;">Konfirmasi akan dikirim ke email dalam beberapa menit.<br/>Tim pixeldew akan menghubungi Anda segera.</p>
+        <p style="margin-top:0.5rem;font-family:var(--mono);">Konfirmasi akan dikirim ke email dalam beberapa menit.<br/>Tim pixeldew akan menghubungi Anda segera.</p>
         <button class="btn-primary" style="margin-top:1.5rem;font-size:0.875rem;" onclick="downloadReceipt()">
           ↓ &nbsp;Unduh Bukti Pembayaran
         </button>
@@ -996,7 +1199,7 @@
     </div>
 
     <div style="padding:1rem 2.5rem 2.5rem;text-align:center;">
-      <p style="font-size:0.78rem;color:var(--mid);">Ada pertanyaan? Hubungi kami di <strong>hello@pixeldew.xyz</strong> atau WhatsApp: <strong>+62 81x xxxx xxxx</strong></p>
+      <p style="font-size:0.75rem;color:var(--mid);font-family:var(--mono);">Ada pertanyaan? Hubungi kami di <strong>hello@pixeldew.xyz</strong> atau WhatsApp: <strong>+62 81x xxxx xxxx</strong></p>
     </div>
 
   </div>
@@ -1039,21 +1242,28 @@ document.getElementById('invoiceModal').addEventListener('click', function(e) {
   if (e.target === this) closeInvoice();
 });
 
-// ─── SCALEV PAYMENT INTEGRATION ───
-// scalev.id uses a redirect/checkout flow:
-// 1. POST to Scalev API to create a payment order → get checkout_url
-// 2. Redirect user to checkout_url (or open in iframe)
-// 3. Scalev handles all payment methods & returns to your callback_url
+// ─── MIDTRANS SNAP INTEGRATION ───
+// Midtrans Snap flow:
+// 1. Your backend creates a transaction → Midtrans returns a snap_token
+// 2. Frontend calls window.snap.pay(snap_token) → Midtrans Snap popup opens
+// 3. User picks payment method & pays inside Snap popup
+// 4. Midtrans fires onSuccess / onPending / onError callbacks
+//
+// Setup:
+//   - Load Midtrans Snap JS: https://app.midtrans.com/snap/snap.js
+//     (Production)  data-client-key="Mid-client-XXXXXXXXXXXXXXXX"
+//     (Sandbox)     data-client-key="SB-Mid-client-XXXXXXXXXXXXXXXX"
+//   - Backend endpoint should POST to:
+//     https://api.midtrans.com/v2/charge  OR  use midtrans-client NPM package
 
 async function processPayment() {
-  const name    = document.getElementById('payerName').value.trim();
-  const email   = document.getElementById('payerEmail').value.trim();
-  const phone   = document.getElementById('payerPhone').value.trim();
-  const method  = document.getElementById('payMethod').value;
-  const note    = document.getElementById('payNote').value.trim();
+  const name  = document.getElementById('payerName').value.trim();
+  const email = document.getElementById('payerEmail').value.trim();
+  const phone = document.getElementById('payerPhone').value.trim();
+  const note  = document.getElementById('payNote').value.trim();
 
   if (!name || !email || !phone) {
-    alert('Mohon lengkapi nama, email, dan nomor WhatsApp terlebih dahulu.');
+    alert('Mohon lengkapi nama, email, dan nomor HP terlebih dahulu.');
     return;
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -1061,76 +1271,96 @@ async function processPayment() {
     return;
   }
 
-  const btn     = document.getElementById('scalevBtn');
+  const btn     = document.getElementById('midtransBtn');
   const spinner = document.getElementById('paySpinner');
-  const btnText = document.getElementById('scalevBtnText');
+  const btnText = document.getElementById('midtransBtnText');
 
-  btn.disabled   = true;
-  spinner.style.display = 'block';
-  btnText.textContent   = 'Menghubungi Scalev...';
+  btn.disabled              = true;
+  spinner.style.display     = 'block';
+  btnText.textContent       = 'Menghubungi Midtrans...';
 
-  // ─── SCALEV API CALL ───
-  // Replace SCALEV_API_KEY with your actual key from scalev.id dashboard.
-  // Endpoint: https://api.scalev.id/v1/invoices (or /v1/payments — check Scalev docs)
+  // ─── MIDTRANS BACKEND CALL ───────────────────────────────────────────
+  // Uncomment & implement this block on your server (Node.js/Next.js example):
   //
-  // const SCALEV_API_KEY = 'sk_live_XXXXXXXXXXXXXXXXXXXXXXXX';
-  // const payload = {
-  //   amount: 16500000,
-  //   currency: 'IDR',
-  //   customer: { name, email, phone },
-  //   items: [
-  //     { name: 'Landing Page + CRM Database + CMS Landing Page', qty: 1, price: 13500000 },
-  //     { name: 'Pixel & Tracking Setup (3 platform)', qty: 3, price: 1000000 }
-  //   ],
-  //   payment_method: method,
-  //   notes: note || 'Invoice Phase 1 kadobajo.id',
-  //   invoice_number: document.getElementById('invNumber').textContent,
-  //   callback_url: 'https://pixeldew.xyz/payment/success',
-  //   redirect_url: 'https://kadobajo.id'
-  // };
+  // // 1. Install: npm install midtrans-client
+  // // 2. Server-side handler (e.g. /api/midtrans/create-token):
+  // //
+  // // import midtransClient from 'midtrans-client';
+  // // const snap = new midtransClient.Snap({
+  // //   isProduction: false,  // ← set true for production
+  // //   serverKey: process.env.MIDTRANS_SERVER_KEY,
+  // // });
+  // //
+  // // const parameter = {
+  // //   transaction_details: {
+  // //     order_id: `PDW-${Date.now()}`,
+  // //     gross_amount: 16500000,
+  // //   },
+  // //   item_details: [
+  // //     { id: 'LP-CRM-CMS', name: 'Landing Page + CRM + CMS', qty: 1, price: 13500000 },
+  // //     { id: 'PIXEL-3', name: 'Pixel & Tracking Setup (3 platform)', qty: 3, price: 1000000 },
+  // //   ],
+  // //   customer_details: { first_name: name, email, phone },
+  // //   callbacks: {
+  // //     finish: 'https://pixeldew.xyz/payment/success',
+  // //   },
+  // // };
+  // //
+  // // const token = await snap.createTransactionToken(parameter);
+  // // return res.json({ snap_token: token, order_id: parameter.transaction_details.order_id });
   //
+  // // 3. Frontend calls the backend:
   // try {
-  //   const res = await fetch('https://api.scalev.id/v1/invoices', {
+  //   const res = await fetch('/api/midtrans/create-token', {
   //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Authorization': `Bearer ${SCALEV_API_KEY}`
-  //     },
-  //     body: JSON.stringify(payload)
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({ name, email, phone, note }),
   //   });
-  //   const data = await res.json();
-  //   if (data.checkout_url) {
-  //     window.location.href = data.checkout_url; // Redirect to Scalev checkout
-  //   } else {
-  //     throw new Error(data.message || 'Gagal membuat order');
-  //   }
+  //   const { snap_token, order_id } = await res.json();
+  //
+  //   // 4. Open Midtrans Snap popup:
+  //   window.snap.pay(snap_token, {
+  //     onSuccess: (result) => {
+  //       showPaymentSuccess(name, email, result.order_id, result.transaction_id);
+  //     },
+  //     onPending: (result) => {
+  //       showPaymentSuccess(name, email, result.order_id, result.transaction_id);
+  //     },
+  //     onError: (result) => {
+  //       alert('Pembayaran gagal: ' + (result.status_message || 'Coba lagi.'));
+  //       resetPayBtn();
+  //     },
+  //     onClose: () => {
+  //       resetPayBtn();
+  //     },
+  //   });
   // } catch (err) {
   //   alert('Terjadi kesalahan: ' + err.message);
   //   resetPayBtn();
   // }
-  // ──────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────────────
 
-  // DEMO: Simulate API call (remove this block when using real Scalev API above)
-  await new Promise(r => setTimeout(r, 2200));
-  showPaymentSuccess(name, email);
+  // DEMO MODE — hapus blok ini saat Midtrans sudah aktif
+  await new Promise(r => setTimeout(r, 1800));
+  const demoOrderId = 'PDW-' + Date.now();
+  const demoTxId    = 'MT-' + Math.random().toString(36).slice(2,10).toUpperCase();
+  showPaymentSuccess(name, email, demoOrderId, demoTxId);
 }
 
-function showPaymentSuccess(name, email) {
-  const invNo = document.getElementById('invNumber').textContent;
-  const ref   = 'SCV-' + invNo + '-' + Date.now().toString().slice(-6);
-
+function showPaymentSuccess(name, email, orderId, txId) {
+  const ref = txId || ('MT-' + document.getElementById('invNumber').textContent + '-' + Date.now().toString().slice(-6));
   document.getElementById('refCode').textContent = ref;
-  document.getElementById('paymentForm').style.display = 'none';
+  document.getElementById('paymentForm').style.display  = 'none';
   document.getElementById('paymentSuccess').style.display = 'block';
 }
 
 function resetPayBtn() {
-  const btn     = document.getElementById('scalevBtn');
+  const btn     = document.getElementById('midtransBtn');
   const spinner = document.getElementById('paySpinner');
-  const btnText = document.getElementById('scalevBtnText');
-  btn.disabled  = false;
+  const btnText = document.getElementById('midtransBtnText');
+  btn.disabled          = false;
   spinner.style.display = 'none';
-  btnText.textContent   = 'Bayar Rp 16.500.000 via Scalev →';
+  btnText.textContent   = 'Bayar Rp 16.500.000 via Midtrans →';
 }
 
 function downloadReceipt() {
@@ -1142,10 +1372,10 @@ function downloadReceipt() {
     'BUKTI PEMBAYARAN — pixeldew.xyz',
     '================================',
     '',
-    'No. Invoice : ' + invNo,
-    'Ref Scalev  : ' + ref,
-    'Tanggal     : ' + date,
-    'Klien       : kadobajo.id',
+    'No. Invoice      : ' + invNo,
+    'Ref Midtrans     : ' + ref,
+    'Tanggal          : ' + date,
+    'Klien            : kadobajo.id',
     '',
     'DETAIL PEMBAYARAN',
     '-----------------',
@@ -1161,7 +1391,7 @@ function downloadReceipt() {
     '- Maintenance: 3 bulan hingga 20 Juli 2026',
     '',
     'pixeldew.xyz · hello@pixeldew.xyz',
-    'Diproses via scalev.id'
+    'Diproses via midtrans.com'
   ].join('\n');
 
   const blob = new Blob([content], { type: 'text/plain' });
