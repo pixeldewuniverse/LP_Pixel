@@ -12,6 +12,9 @@
 <!-- Production: https://app.midtrans.com/snap/snap.js -->
 <script src="https://app.sandbox.midtrans.com/snap/snap.js"
         data-client-key="SB-Mid-client-XXXXXXXXXXXXXXXX"></script>
+<!-- PDF generation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
   /* ═══════════════════════════════════════════
      PIXELDEW AUTHENTIC STYLE SYSTEM
@@ -1130,7 +1133,7 @@
         <div class="ref-code" id="refCode">—</div>
         <p style="margin-top:0.5rem;font-family:var(--mono);">Konfirmasi akan dikirim ke email dalam beberapa menit.<br/>Tim pixeldew akan menghubungi Anda segera.</p>
         <button class="btn-primary" style="margin-top:1.5rem;font-size:0.875rem;" onclick="downloadReceipt()">
-          ↓ &nbsp;Unduh Bukti Pembayaran
+          ↓ &nbsp;Unduh Bukti Pembayaran (PDF)
         </button>
       </div>
     </div>
@@ -1300,43 +1303,356 @@ function resetPayBtn() {
   btnText.textContent   = 'Bayar Rp 16.500.000 via Midtrans →';
 }
 
-function downloadReceipt() {
-  const invNo = document.getElementById('invNumber').textContent;
-  const ref   = document.getElementById('refCode').textContent;
-  const date  = document.getElementById('invDate').textContent;
+async function downloadReceipt() {
+  const invNo  = document.getElementById('invNumber').textContent;
+  const ref    = document.getElementById('refCode').textContent;
+  const date   = document.getElementById('invDate').textContent;
+  const name   = document.getElementById('payerName').value.trim() || 'kadobajo.id';
+  const email  = document.getElementById('payerEmail').value.trim() || '—';
+  const phone  = document.getElementById('payerPhone').value.trim() || '—';
+  const now    = new Date().toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' });
 
-  const content = [
-    'BUKTI PEMBAYARAN — pixeldew.xyz',
-    '================================',
-    '',
-    'No. Invoice      : ' + invNo,
-    'Ref Midtrans     : ' + ref,
-    'Tanggal          : ' + date,
-    'Klien            : kadobajo.id',
-    '',
-    'DETAIL PEMBAYARAN',
-    '-----------------',
-    'Landing Page + CRM + CMS Landing Page   Rp 13.500.000',
-    'Pixel & Tracking Setup (3 platform)     Rp  3.000.000',
-    '                                       ─────────────',
-    'TOTAL NETT                              Rp 16.500.000',
-    '',
-    'CATATAN',
-    '-------',
-    '- Landing Page & CRM sudah live di kadobajo.id',
-    '- Minor Revisi: 2x hingga 20 Mei 2026',
-    '- Maintenance: 3 bulan hingga 20 Juli 2026',
-    '',
-    'pixeldew.xyz · hello@pixeldew.xyz',
-    'Diproses via midtrans.com'
-  ].join('\n');
+  // ── Update button state ──
+  const dlBtn = document.querySelector('[onclick="downloadReceipt()"]');
+  const origText = dlBtn.innerHTML;
+  dlBtn.disabled = true;
+  dlBtn.innerHTML = '<span style="opacity:0.7">Generating PDF...</span>';
 
-  const blob = new Blob([content], { type: 'text/plain' });
-  const a    = document.createElement('a');
-  a.href     = URL.createObjectURL(blob);
-  a.download = 'Invoice-' + invNo + '-pixeldew.txt';
-  a.click();
+  // ── Build hidden receipt DOM node ──
+  const wrapper = document.createElement('div');
+  wrapper.id = 'pdf-receipt-node';
+  wrapper.style.cssText = `
+    position:fixed; left:-9999px; top:0;
+    width:794px; background:#050010;
+    font-family:'JetBrains Mono','Courier New',monospace;
+    color:#eaf9ff; font-size:13px; line-height:1.6;
+  `;
+
+  wrapper.innerHTML = `
+  <style>
+    #pdf-receipt-node * { box-sizing:border-box; margin:0; padding:0; }
+    #pdf-receipt-node {
+      background: #050010;
+      background-image:
+        linear-gradient(rgba(43,255,184,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(43,255,184,0.025) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .pr { /* receipt card */
+      margin: 32px;
+      border: 1px solid rgba(43,255,184,0.22);
+      border-radius: 10px;
+      overflow: hidden;
+      background: rgba(10,5,32,0.98);
+      box-shadow: 0 0 0 1px rgba(43,255,184,0.06);
+    }
+    .pr-topbar {
+      height: 3px;
+      background: linear-gradient(90deg, #2bffb8, #18d8ff, transparent);
+    }
+    /* HEADER */
+    .pr-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 28px 32px 24px;
+      border-bottom: 1px solid rgba(43,255,184,0.18);
+      background: radial-gradient(ellipse at 0% 0%, rgba(43,255,184,0.08), transparent 60%);
+    }
+    .pr-logo {
+      font-size: 22px; font-weight: 700; letter-spacing: -0.02em; line-height:1;
+      margin-bottom: 6px;
+    }
+    .pr-logo .px { color: #2bffb8; text-shadow: 0 0 14px rgba(43,255,184,0.5); }
+    .pr-logo .xyz { font-size: 11px; color: #4a5568; font-weight: 400; margin-left: 1px; }
+    .pr-from { font-size: 11px; color: #8fa5b8; line-height: 1.9; margin-top: 6px; }
+    .pr-title-block { text-align: right; }
+    .pr-title {
+      font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800;
+      letter-spacing: 0.06em; color: #eaf9ff;
+    }
+    .pr-invno { font-size: 11px; color: #8fa5b8; margin-top: 5px; letter-spacing: 0.04em; }
+    .pr-status {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(43,255,184,0.1); color: #2bffb8;
+      border: 1px solid rgba(43,255,184,0.3); border-radius: 4px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 4px 10px; margin-top: 8px;
+    }
+    .pr-status-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #2bffb8; box-shadow: 0 0 8px rgba(43,255,184,0.9);
+      display: inline-block;
+    }
+    /* META */
+    .pr-meta { display: flex; border-bottom: 1px solid rgba(43,255,184,0.15); }
+    .pr-meta-cell { flex: 1; padding: 18px 32px; }
+    .pr-meta-cell:first-child { border-right: 1px solid rgba(43,255,184,0.15); }
+    .pr-meta-cell label {
+      display: block; font-size: 9px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.12em; color: #8fa5b8; margin-bottom: 6px;
+    }
+    .pr-meta-cell strong {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 14px; display: block; color: #eaf9ff;
+    }
+    .pr-meta-cell span { font-size: 11px; color: #8fa5b8; display: block; margin-top: 2px; }
+    /* REF BANNER */
+    .pr-ref {
+      margin: 20px 32px;
+      padding: 14px 18px;
+      background: rgba(43,255,184,0.05);
+      border: 1px solid rgba(43,255,184,0.22);
+      border-radius: 8px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .pr-ref-left label {
+      font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em;
+      color: #8fa5b8; display: block; margin-bottom: 5px;
+    }
+    .pr-ref-left .ref-val {
+      font-size: 16px; font-weight: 700; color: #2bffb8;
+      letter-spacing: 0.06em; text-shadow: 0 0 16px rgba(43,255,184,0.3);
+    }
+    .pr-ref-right {
+      text-align: right; font-size: 10px; color: #8fa5b8; line-height: 1.7;
+    }
+    .pr-ref-right .tag {
+      display: inline-block; font-size: 10px; color: #18d8ff;
+      border: 1px solid rgba(24,216,255,0.25); border-radius: 4px;
+      padding: 3px 8px; background: rgba(24,216,255,0.06);
+      margin-bottom: 3px;
+    }
+    /* TABLE */
+    .pr-table { padding: 0 32px; }
+    .pr-thead {
+      display: flex; gap: 8px; padding: 10px 0;
+      border-bottom: 1px solid rgba(43,255,184,0.18);
+      font-size: 9px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #8fa5b8;
+    }
+    .pr-thead .c1 { flex: 1; }
+    .pr-thead .c2 { width: 44px; }
+    .pr-thead .c3 { width: 120px; text-align: right; }
+    .pr-thead .c4 { width: 120px; text-align: right; }
+    .pr-trow {
+      display: flex; gap: 8px; padding: 16px 0;
+      border-bottom: 1px solid rgba(43,255,184,0.07);
+      align-items: flex-start;
+    }
+    .pr-trow:last-child { border-bottom: none; }
+    .pr-trow .c1 { flex: 1; }
+    .pr-trow .c2 { width: 44px; font-size: 13px; color: #8fa5b8; }
+    .pr-trow .c3 { width: 120px; text-align: right; font-size: 13px; color: rgba(200,240,255,0.75); }
+    .pr-trow .c4 { width: 120px; text-align: right; font-size: 13px; color: #18d8ff; font-weight: 700; }
+    .pr-item-name { font-weight: 500; font-size: 13px; color: #eaf9ff; margin-bottom: 4px; }
+    .pr-item-desc { font-size: 11px; color: #8fa5b8; line-height: 1.55; }
+    /* TOTALS */
+    .pr-totals {
+      margin: 8px 32px 20px;
+      background: rgba(43,255,184,0.04);
+      border: 1px solid rgba(43,255,184,0.18);
+      border-radius: 8px; padding: 16px 20px;
+    }
+    .pr-total-row {
+      display: flex; justify-content: space-between;
+      padding: 4px 0; font-size: 13px; color: #8fa5b8;
+    }
+    .pr-total-row.grand {
+      border-top: 1px solid rgba(43,255,184,0.2);
+      margin-top: 8px; padding-top: 12px;
+    }
+    .pr-total-row.grand .label { font-weight: 700; font-size: 14px; color: #eaf9ff; }
+    .pr-total-row.grand .amount {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px;
+      color: #2bffb8; text-shadow: 0 0 18px rgba(43,255,184,0.3);
+    }
+    /* NOTES */
+    .pr-notes {
+      margin: 0 32px 20px; padding: 14px 18px;
+      background: rgba(43,255,184,0.04);
+      border: 1px solid rgba(43,255,184,0.15);
+      border-left: 3px solid #2bffb8; border-radius: 6px;
+    }
+    .pr-notes label {
+      display: block; font-size: 9px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #2bffb8; margin-bottom: 7px;
+    }
+    .pr-notes p { font-size: 11.5px; color: #8fa5b8; line-height: 1.8; }
+    .pr-notes p strong { color: rgba(200,240,255,0.9); }
+    /* FOOTER */
+    .pr-footer {
+      border-top: 1px solid rgba(43,255,184,0.15);
+      padding: 16px 32px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .pr-footer-left { font-size: 11px; color: #8fa5b8; line-height: 1.7; }
+    .pr-footer-left strong { color: rgba(43,255,184,0.8); }
+    .pr-footer-right { font-size: 10px; color: #4a5568; text-align: right; line-height: 1.7; }
+    .pr-footer-right span { color: rgba(24,216,255,0.55); }
+  </style>
+
+  <div class="pr">
+    <div class="pr-topbar"></div>
+
+    <div class="pr-header">
+      <div>
+        <div class="pr-logo"><span class="px">pixel</span>dew<span class="xyz">.xyz</span></div>
+        <div class="pr-from">
+          pixeldew.xyz · Digital Engineering Studio<br>
+          hello@pixeldew.xyz · Indonesia
+        </div>
+      </div>
+      <div class="pr-title-block">
+        <div class="pr-title">RECEIPT</div>
+        <div class="pr-invno">${invNo}</div>
+        <div class="pr-status"><span class="pr-status-dot"></span>LUNAS</div>
+      </div>
+    </div>
+
+    <div class="pr-meta">
+      <div class="pr-meta-cell">
+        <label>Ditagihkan Kepada</label>
+        <strong>${name}</strong>
+        <span>${email}</span>
+        <span>${phone}</span>
+      </div>
+      <div class="pr-meta-cell">
+        <label>Tanggal Pembayaran</label>
+        <strong>${date}</strong>
+        <span>Pukul ${now} WIB</span>
+      </div>
+    </div>
+
+    <div class="pr-ref">
+      <div class="pr-ref-left">
+        <label>Referensi Transaksi Midtrans</label>
+        <div class="ref-val">${ref}</div>
+      </div>
+      <div class="pr-ref-right">
+        <div class="tag">via midtrans.com</div><br>
+        Pembayaran terverifikasi
+      </div>
+    </div>
+
+    <div class="pr-table">
+      <div class="pr-thead">
+        <div class="c1">Deskripsi</div>
+        <div class="c2">Qty</div>
+        <div class="c3">Harga Satuan</div>
+        <div class="c4">Total</div>
+      </div>
+      <div class="pr-trow">
+        <div class="c1">
+          <div class="pr-item-name">Landing Page + CRM Database Custom + CMS Landing Page</div>
+          <div class="pr-item-desc">Landing page multi-campaign, Payload CMS, database leads/customers/transactions, admin dashboard, export LAL, SEO foundation, email konfirmasi, auth system.</div>
+        </div>
+        <div class="c2">1</div>
+        <div class="c3">Rp 13.500.000</div>
+        <div class="c4">Rp 13.500.000</div>
+      </div>
+      <div class="pr-trow">
+        <div class="c1">
+          <div class="pr-item-name">Pixel &amp; Tracking Setup</div>
+          <div class="pr-item-desc">Setup &amp; verifikasi: Meta Pixel, Google Tag Manager + GA4, TikTok Pixel. Termasuk event tracking PageView, ViewContent, Lead.</div>
+        </div>
+        <div class="c2">3</div>
+        <div class="c3">Rp 1.000.000</div>
+        <div class="c4">Rp 3.000.000</div>
+      </div>
+    </div>
+
+    <div class="pr-totals">
+      <div class="pr-total-row"><span>Subtotal</span><span>Rp 16.500.000</span></div>
+      <div class="pr-total-row"><span>Pajak (0% — NETT)</span><span>Rp 0</span></div>
+      <div class="pr-total-row grand">
+        <span class="label">Total Dibayar</span>
+        <span class="amount">Rp 16.500.000</span>
+      </div>
+    </div>
+
+    <div class="pr-notes">
+      <label>📋 Ketentuan Layanan</label>
+      <p>
+        <strong>Status:</strong> Landing Page &amp; CRM sudah live di domain kadobajo.id<br>
+        <strong>Minor Revisi:</strong> 2x hingga 20 Mei 2026 (1 bulan)<br>
+        <strong>Maintenance:</strong> 3 bulan hingga 20 Juli 2026 (1x per bulan)<br>
+        <strong>Harga:</strong> NETT — tidak ada biaya tambahan di luar tagihan ini
+      </p>
+    </div>
+
+    <div class="pr-footer">
+      <div class="pr-footer-left">
+        <strong>pixeldew.xyz</strong> · Digital Engineering Studio<br>
+        hello@pixeldew.xyz
+      </div>
+      <div class="pr-footer-right">
+        Dokumen ini dihasilkan otomatis<br>
+        <span>Diproses via midtrans.com</span>
+      </div>
+    </div>
+  </div>
+  `;
+
+  document.body.appendChild(wrapper);
+
+  try {
+    // Load Google Fonts into the hidden node before capture
+    await document.fonts.ready;
+
+    const canvas = await html2canvas(wrapper, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: '#050010',
+      logging: false,
+      width: 794,
+      windowWidth: 794,
+    });
+
+    const imgData = canvas.toDataURL('image/png');
+
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({
+      orientation: 'portrait',
+      unit: 'px',
+      format: 'a4',
+    });
+
+    const pdfW  = pdf.internal.pageSize.getWidth();
+    const pdfH  = pdf.internal.pageSize.getHeight();
+    const ratio = canvas.height / canvas.width;
+    const imgH  = pdfW * ratio;
+
+    // If receipt is taller than one page, scale to fit
+    if (imgH <= pdfH) {
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfW, imgH);
+    } else {
+      // Multi-page: slice canvas into A4-height chunks
+      const pageHeightPx = canvas.width * (pdfH / pdfW);
+      let yOffset = 0;
+      while (yOffset < canvas.height) {
+        const sliceCanvas  = document.createElement('canvas');
+        sliceCanvas.width  = canvas.width;
+        sliceCanvas.height = Math.min(pageHeightPx, canvas.height - yOffset);
+        const ctx = sliceCanvas.getContext('2d');
+        ctx.drawImage(canvas, 0, -yOffset);
+        const sliceData = sliceCanvas.toDataURL('image/png');
+        if (yOffset > 0) pdf.addPage();
+        pdf.addImage(sliceData, 'PNG', 0, 0, pdfW, pdfH);
+        yOffset += pageHeightPx;
+      }
+    }
+
+    pdf.save(`Receipt-${invNo}-pixeldew.pdf`);
+  } catch (err) {
+    console.error('PDF generation failed:', err);
+    alert('Gagal generate PDF. Coba lagi.');
+  } finally {
+    document.body.removeChild(wrapper);
+    dlBtn.disabled = false;
+    dlBtn.innerHTML = origText;
+  }
 }
+
+
 
 // ESC key to close
 document.addEventListener('keydown', function(e) {
